@@ -13,6 +13,8 @@ export default authenticatedProcedure
       id,
     })) as LessonBare
 
+    // if(!lesson) add error to throw if no lesson found
+
     if (authUser.id !== lesson.teacherId) {
       const teacher = await db.getRepository(User).findOneBy({
         id,

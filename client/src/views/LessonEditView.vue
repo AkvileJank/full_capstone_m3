@@ -2,7 +2,7 @@
 import { useRouter, useRoute } from 'vue-router'
 import { onBeforeMount, ref } from 'vue'
 import { trpc } from '@/trpc'
-import { FwbButton, FwbHeading, FwbInput, FwbTextarea } from 'flowbite-vue'
+import { FwbButton, FwbHeading, FwbInput, FwbTextarea, FwbModal } from 'flowbite-vue'
 import useErrorMessage from '@/composables/useErrorMessage'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -12,6 +12,21 @@ const route = useRoute()
 
 const lesson = ref()
 const lessonId = Number(route.params.id)
+
+const isShowModal = ref(false)
+
+function closeModal() {
+  isShowModal.value = false
+}
+
+function removeAndClose() {
+  isShowModal.value = false
+  removeLesson()
+}
+
+function showModal() {
+  isShowModal.value = true
+}
 
 onBeforeMount(async () => {
   const [lessonFound] = await Promise.all([trpc.lesson.findById.query({ id: lessonId })])
@@ -24,6 +39,10 @@ const [updateLesson, errorMessage] = useErrorMessage(async () => {
   router.push({ name: 'Dashboard' })
 })
 
+const [removeLesson] = useErrorMessage(async () => {
+  await trpc.lesson.remove.mutate({ id: lessonId })
+})
+
 const dateFormat = (date: Date) => {
   const dateString = date.toLocaleDateString('en-CA')
   const hours = date.getHours()
@@ -34,6 +53,7 @@ const dateFormat = (date: Date) => {
 </script>
 
 <template>
+  <div v-if="!lesson">This lesson does not exist</div>
   <div v-if="lesson">
     <div class="mb-4 flex flex-row">
       <FwbHeading tag="h1" class="mb-0 !text-xl"> Enter the changes: </FwbHeading>
@@ -58,7 +78,7 @@ const dateFormat = (date: Date) => {
             >Date and time:</label
           >
           <div class="mb-3">
-            <VueDatePicker v-model="lesson.dateTime" :format="dateFormat" id="datepicker"/>
+            <VueDatePicker v-model="lesson.dateTime" :format="dateFormat" id="datepicker" />
           </div>
 
           <div class="mb-3">
@@ -112,6 +132,7 @@ const dateFormat = (date: Date) => {
           </div>
 
           <AlertError :message="errorMessage" />
+
           <!-- prettier-ignore -->
           <FwbButton
             type="submit"
@@ -121,8 +142,34 @@ const dateFormat = (date: Date) => {
             data-testid="updateLesson"
             size="xl"
             >Save changes</FwbButton>
+
+          <FwbButton
+            @click="removeAndClose()"
+            data-testid="updateLesson"
+            size="xl"
+            color="red"
+            >Remove lesson</FwbButton
+          >
         </Card>
       </form>
     </Transition>
   </div>
+
+
+  <!-- <fwb-modal v-if="isShowModal" @close="closeModal">
+    <template #header>
+      <div class="flex items-center text-lg">Confirm delete</div>
+    </template>
+    <template #body>
+      <p class="text-center text-base leading-relaxed text-gray-500 dark:text-gray-400">
+        Are you sure you want to remove this lesson?
+      </p>
+    </template>
+    <template #footer>
+      <div class="flex justify-between">
+        <fwb-button @click="closeModal" color="alternative"> Cancel </fwb-button>
+        <fwb-button @click="closeModal" color="red"> Remove </fwb-button>
+      </div>
+    </template>
+  </fwb-modal> -->
 </template>

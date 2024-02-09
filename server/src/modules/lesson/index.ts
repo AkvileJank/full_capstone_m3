@@ -10,6 +10,7 @@ import findById from './findById'
 import isOwned from './isOwned'
 import isJoined from './isJoined'
 import findAttendingUsers from './findAttendingUsers'
+import removeFromLesson from './removeFromLesson'
 
 export default router({
   create,
@@ -23,4 +24,5 @@ export default router({
   isOwned,
   isJoined, // for button switch between join and remove me from lesson??
   findAttendingUsers,
+  removeFromLesson
 })
