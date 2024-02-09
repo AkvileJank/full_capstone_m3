@@ -26,9 +26,10 @@ export const fakeLesson = <T extends Partial<Lesson>>(
 ) => ({
   id: randomId(),
   title: 'Test lesson',
-  dateTime: '2024-01-09 18:00',
+  dateTime: new Date('2024-01-09 18:00'),
   location: 'Test location street',
   capacity: 10,
   description: 'This is a lesson for testing',
+  duration: 60,
   ...overrides,
 })

@@ -18,7 +18,7 @@ export default async (
   const mailOptions = {
     from: 'emailforbe3@gmail.com',
     to: recipientEmail,
-    subject: `Information about lesson "${lesson.title}"`,
+    subject: `Information about your joined lesson: "${lesson.title}"`,
     text: `Here are the details for the lesson:\n
     Title: ${lesson.title}\n
     Date: ${lesson.dateTime}\n

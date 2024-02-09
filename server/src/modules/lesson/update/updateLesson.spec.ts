@@ -26,6 +26,8 @@ it('should update existing lesson', async () => {
   expect(updatedLesson).toEqual({
     ...lesson,
     ...lessonNewData,
+    teacher: undefined,
+    attendingUsers: [],
   })
 })
 
@@ -40,7 +42,11 @@ it('should return lesson unchanged if only id was provided', async () => {
   const updatedLesson = await update({
     id: lesson.id,
   })
-  expect(updatedLesson).toEqual(lesson)
+  expect(updatedLesson).toEqual({
+    ...lesson,
+    teacher: undefined,
+    attendingUsers: [],
+  })
 })
 
 it('should throw error if user is not teacher for this lesson', async () => {

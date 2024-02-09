@@ -5,12 +5,13 @@ import sendEmail from './sendEmail'
 
 export default authenticatedProcedure
   .input(lessonSchema.pick({ id: true }))
+  // input could be whole lesson? then could call findById in frontend and pass lesson to sendEmail from here
   .mutation(async ({ input: { id }, ctx: { db, authUser } }) => {
     const lesson = await db.getRepository(Lesson).findOneBy({
       id,
     })
 
-    const authUserFull = await db.getRepository(User).findOne({
+    const authUserDetails = await db.getRepository(User).findOne({
       where: {
         id: authUser.id,
       },
@@ -27,6 +28,6 @@ export default authenticatedProcedure
    // NOTE: any potential security issues?
     const teacherName = `${teacher?.firstName} ${teacher?.lastName}`
 
-    const response = await sendEmail(authUserFull!.email, lesson!, teacherName)
+    const response = await sendEmail(authUserDetails!.email, lesson!, teacherName)
     return response
   })

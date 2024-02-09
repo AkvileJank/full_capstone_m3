@@ -18,12 +18,13 @@ it('should return a list of lessons from other users', async () => {
       fakeLesson({ teacherId: user2.id }),
     ])
 
+  const page = 1
+  const pageSize = 5
   const { findAll } = lessonRouter.createCaller(authContext({ db }, user1))
 
-  const foundLessons = await findAll()
-  console.log(foundLessons)
+  const result = await findAll({page, pageSize})
 
-  foundLessons.forEach((lesson) =>
+  result.lessons.forEach((lesson) =>
     expect(lesson).not.toContain({
       teacherId: user1.id,
     })
