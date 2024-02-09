@@ -17,8 +17,11 @@ export class Lesson {
   @Column('text')
   title: string
 
-  @Column('text')
-  dateTime: string
+  @Column('timestamp with time zone')
+  dateTime: Date
+
+  @Column('integer')
+  duration: number
 
   @Column('text')
   location: string
@@ -46,7 +49,8 @@ export type LessonBare = Omit<Lesson, 'teacher' | 'attendingUsers'>
 export const lessonSchema = validates<LessonBare>().with({
   id: z.number().positive().int(),
   title: z.string().trim().min(2).max(150),
-  dateTime: z.string(),
+  dateTime: z.date(),
+  duration: z.number().positive().int().min(1),
   location: z.string().trim().min(2).max(1000),
   capacity: z.number().positive().int().max(1000000),
   description: z.string().trim().min(2).max(1000),

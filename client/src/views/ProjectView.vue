@@ -20,14 +20,24 @@ const lessonId = Number(route.params.id)
 const isOwned = ref<boolean>()
 const isJoined = ref<boolean>()
 
+const lessonDate = ref<string>('')
+const hours = ref<number>(0)
+const minutes = ref<number>(0)
+
+
+
 onBeforeMount(async () => {
   const [lessonFound] = await Promise.all([trpc.lesson.findById.query({ id: lessonId })])
   lesson.value = lessonFound
+  lessonDate.value = lessonFound.dateTime.toString().split('T')[0]
+  hours.value = new Date(lessonFound.dateTime).getHours()
+  minutes.value = new Date(lessonFound.dateTime).getMinutes()
 
   isOwned.value = await trpc.lesson.isOwned.query({ id: lessonId })
   isJoined.value = await trpc.lesson.isJoined.query({ id: lessonId })
 
   students.value = await trpc.lesson.findAttendingUsers.query({ id: lessonId })
+
 })
 
 const [joinLesson, errorMessage] = useErrorMessage(async () => {
@@ -48,7 +58,12 @@ const [joinLesson, errorMessage] = useErrorMessage(async () => {
       <Card>
         <div class="mb-3">
           <h3 class="font-bold">Date:</h3>
-          <p>{{ lesson.dateTime }}</p>
+          <p>{{ lessonDate }}</p>
+        </div>
+
+        <div class="mb-3">
+          <h3 class="font-bold">Time:</h3>
+          <p>{{ `${hours}:${minutes}` }}</p>
         </div>
 
         <div class="mb-3">

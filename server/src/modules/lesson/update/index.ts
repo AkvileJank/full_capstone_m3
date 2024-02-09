@@ -6,7 +6,6 @@ export default authenticatedProcedure
   .input(lessonUpdateSchema)
   .mutation(async ({ input, ctx: { db, authUser } }) => {
     if (!input.id) missingId()
-
     const lesson = await db.getRepository(Lesson).findOneBy({ id: input.id })
 
     if (!lesson) notFound()

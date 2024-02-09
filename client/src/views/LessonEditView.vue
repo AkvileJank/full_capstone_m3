@@ -4,6 +4,8 @@ import { onBeforeMount, ref } from 'vue'
 import { trpc } from '@/trpc'
 import { FwbButton, FwbHeading, FwbInput, FwbTextarea } from 'flowbite-vue'
 import useErrorMessage from '@/composables/useErrorMessage'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const router = useRouter()
 const route = useRoute()
@@ -14,12 +16,21 @@ const lessonId = Number(route.params.id)
 onBeforeMount(async () => {
   const [lessonFound] = await Promise.all([trpc.lesson.findById.query({ id: lessonId })])
   lesson.value = lessonFound
+  lesson.value.dateTime = new Date(lesson.value.dateTime)
 })
 
 const [updateLesson, errorMessage] = useErrorMessage(async () => {
   await trpc.lesson.update.mutate(lesson.value)
-  router.push({name: 'Dashboard'})
+  router.push({ name: 'Dashboard' })
 })
+
+const dateFormat = (date: Date) => {
+  const dateString = date.toLocaleDateString('en-CA')
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const timeString = `${hours}:${minutes}`
+  return `${dateString} ${timeString}`
+}
 </script>
 
 <template>
@@ -40,13 +51,30 @@ const [updateLesson, errorMessage] = useErrorMessage(async () => {
             ></FwbInput>
           </div>
 
+          <label
+            for="datepicker"
+            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            aria-label="Lesson date and time"
+            >Date and time:</label
+          >
           <div class="mb-3">
-            <FwbInput
-              aria-label="Lesson title"
-              v-model="lesson.dateTime"
-              :minlength="2"
-              label="Date:"
-            ></FwbInput>
+            <VueDatePicker v-model="lesson.dateTime" :format="dateFormat" id="datepicker"/>
+          </div>
+
+          <div class="mb-3">
+            <label
+              for="number-input"
+              class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >Duration: (min)</label
+            >
+            <input
+              v-model="lesson.duration"
+              type="number"
+              id="number-input"
+              aria-label="Lesson duration"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              required
+            />
           </div>
 
           <div class="mb-3">
