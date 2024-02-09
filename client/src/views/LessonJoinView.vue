@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import Bug from '@/components/Bug.vue'
 import { trpc } from '@/trpc'
-import type { UserBare } from '@mono/server/src/shared/entities'
 import { FwbButton, FwbHeading } from 'flowbite-vue'
 import { onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Card from '@/components/Card.vue'
-import useErrorMessage from '../composables/useErrorMessage/index';
+import useErrorMessage from '../composables/useErrorMessage/index'
 
 const route = useRoute()
 
@@ -19,8 +17,8 @@ onBeforeMount(async () => {
   lesson.value = lessonFound
 })
 
-const [joinLesson, errorMessage] = useErrorMessage(async() => {
-  await trpc.lesson.join.mutate({id: lessonId})
+const [joinLesson, errorMessage] = useErrorMessage(async () => {
+  await trpc.lesson.join.mutate({ id: lessonId })
 })
 </script>
 

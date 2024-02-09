@@ -3,7 +3,7 @@ import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
-import Lesson from '@/components/Project.vue'
+import Lesson from '@/components/Lesson.vue'
 
 const PAGE_SIZE = 5
 

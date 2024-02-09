@@ -20,12 +20,12 @@ const router = createRouter({
         {
           path: 'lesson/create',
           name: 'ProjectCreate',
-          component: () => import('../views/ProjectCreateView.vue'),
+          component: () => import('../views/LessonCreateView.vue'),
         },
         {
           path: 'lesson/:id',
           name: 'Lesson',
-          component: () => import('../views/ProjectView.vue'),
+          component: () => import('../views/SingleLessonView.vue'),
         },
         {
           path: 'lesson/:id/update',
@@ -46,8 +46,7 @@ const router = createRouter({
           path: 'lesson/:id/join/confirmation',
           name: 'JoinConfirmation',
           component: () => import('../views/ConfirmationView.vue'),
-        }
-
+        },
       ],
     },
     {
