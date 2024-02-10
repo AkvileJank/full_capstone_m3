@@ -21,39 +21,49 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <PageForm heading="Log in to your account" formLabel="Login" @submit="submitLogin">
-    <template #default>
-      <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
+  <div class="background-container h-screen">
+    <PageForm heading="Log in to your account" formLabel="Login" @submit="submitLogin">
+      <template #default>
+        <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
 
-      <FwbInput
-        label="Password"
-        id="password"
-        name="password"
-        type="password"
-        autocomplete="current-password"
-        v-model="userForm.password"
-        :required="true"
-      />
+        <FwbInput
+          label="Password"
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          v-model="userForm.password"
+          :required="true"
+        />
 
-      <FwbAlert v-if="errorMessage" data-testid="errorMessage" type="danger">
-        {{ errorMessage }}
-      </FwbAlert>
+        <FwbAlert v-if="errorMessage" data-testid="errorMessage" type="danger">
+          {{ errorMessage }}
+        </FwbAlert>
 
-      <div class="grid">
-        <FwbButton color="green" type="submit" size="xl">Log in</FwbButton>
-      </div>
-    </template>
+        <div class="grid">
+          <FwbButton color="green" type="submit" size="xl">Log in</FwbButton>
+        </div>
+      </template>
 
-    <template #footer>
-      <FwbAlert class="bg-transparent text-center">
-        Not a member?
-        {{ ' ' }}
-        <RouterLink
-          :to="{ name: 'Signup' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Sign up</RouterLink
-        >
-      </FwbAlert>
-    </template>
-  </PageForm>
+      <template #footer>
+        <FwbAlert class="bg-transparent text-center">
+          Not a member?
+          {{ ' ' }}
+          <RouterLink
+            :to="{ name: 'Signup' }"
+            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >Sign up</RouterLink
+          >
+        </FwbAlert>
+      </template>
+    </PageForm>
+  </div>
 </template>
+
+<style scoped>
+.background-container {
+  background-image: url('@/assets/dots.jpg');
+  background-size: contain;
+  background-position: center;
+}
+</style>

@@ -6,6 +6,7 @@ import { FwbButton, FwbHeading, FwbInput, FwbTextarea, FwbModal } from 'flowbite
 import useErrorMessage from '@/composables/useErrorMessage'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import calendarFormatter from '@/utils/calendarFormatter'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,98 +44,93 @@ const [removeLesson] = useErrorMessage(async () => {
   await trpc.lesson.remove.mutate({ id: lessonId })
 })
 
-const dateFormat = (date: Date) => {
-  const dateString = date.toLocaleDateString('en-CA')
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  const timeString = `${hours}:${minutes}`
-  return `${dateString} ${timeString}`
-}
+
 </script>
 
 <template>
-  <div v-if="!lesson">This lesson does not exist</div>
-  <div v-if="lesson">
-    <div class="mb-4 flex flex-row">
-      <FwbHeading tag="h1" class="mb-0 !text-xl"> Enter the changes: </FwbHeading>
-    </div>
+  <div class="container mx-auto px-6 py-8">
+    <div v-if="!lesson">This lesson does not exist</div>
+    <div v-if="lesson">
+      <div class="mb-4 flex flex-row">
+        <FwbHeading tag="h1" class="mb-0 !text-xl"> Enter the changes: </FwbHeading>
+      </div>
 
-    <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
-      <form aria-label="Lesson" @submit.prevent="updateLesson">
-        <Card>
-          <div class="mb-3">
-            <FwbInput
-              aria-label="Lesson title"
-              v-model="lesson.title"
-              :minlength="2"
-              label="Title:"
-            ></FwbInput>
-          </div>
-
-          <label
-            for="datepicker"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            aria-label="Lesson date and time"
-            >Date and time:</label
-          >
-          <div class="mb-3">
-            <VueDatePicker v-model="lesson.dateTime" :format="dateFormat" id="datepicker" />
-          </div>
-
-          <div class="mb-3">
+      <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
+        <form aria-label="Lesson" @submit.prevent="updateLesson">
+          <Card>
+            <div class="mb-3">
+              <FwbInput
+                aria-label="Lesson title"
+                v-model="lesson.title"
+                :minlength="2"
+                label="Title:"
+              ></FwbInput>
+            </div>
             <label
-              for="number-input"
-              class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >Duration: (min)</label
+              for="datepicker"
+              class="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              aria-label="Lesson date and time"
+              >Date and time:</label
             >
-            <input
-              v-model="lesson.duration"
-              type="number"
-              id="number-input"
-              aria-label="Lesson duration"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              required
-            />
-          </div>
+            <div class="mb-3">
+              <VueDatePicker v-model="lesson.dateTime" :format="calendarFormatter" id="datepicker" />
+            </div>
 
-          <div class="mb-3">
-            <FwbInput
-              aria-label="Lesson location"
-              v-model="lesson.location"
-              :minlength="2"
-              label="Location:"
-            ></FwbInput>
-          </div>
+            <div class="mb-3">
+              <label
+                for="number-input"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Duration: (min)</label
+              >
+              <input
+                v-model="lesson.duration"
+                type="number"
+                id="number-input"
+                aria-label="Lesson duration"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                required
+              />
+            </div>
 
-          <div class="mb-3">
-            <label
-              for="number-input"
-              class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >Capacity:</label
-            >
-            <input
-              v-model="lesson.capacity"
-              type="number"
-              id="number-input"
-              aria-label="Lesson capacity"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              required
-            />
-          </div>
+            <div class="mb-3">
+              <FwbInput
+                aria-label="Lesson location"
+                v-model="lesson.location"
+                :minlength="2"
+                label="Location:"
+              ></FwbInput>
+            </div>
 
-          <div class="mb-3">
-            <FwbTextarea
-              aria-label="Lesson description"
-              v-model="lesson.description"
-              :minlength="2"
-              label="Description:"
-            ></FwbTextarea>
-          </div>
+            <div class="mb-3">
+              <label
+                for="number-input"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Capacity:</label
+              >
+              <input
+                v-model="lesson.capacity"
+                type="number"
+                id="number-input"
+                aria-label="Lesson capacity"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                required
+              />
+            </div>
 
-          <AlertError :message="errorMessage" />
+            <div class="mb-3">
+              <FwbTextarea
+                aria-label="Lesson description"
+                v-model="lesson.description"
+                :minlength="2"
+                label="Description:"
+              ></FwbTextarea>
+            </div>
 
-          <!-- prettier-ignore -->
-          <FwbButton
+            <AlertError :message="errorMessage" />
+
+            <div class="flex justify-center gap-6">
+              <!-- prettier-ignore -->
+              <FwbButton
             type="submit"
             component="RouterLink"
             tag="router-link"
@@ -143,20 +139,17 @@ const dateFormat = (date: Date) => {
             size="xl"
             >Save changes</FwbButton>
 
-          <FwbButton
-            @click="removeAndClose()"
-            data-testid="updateLesson"
-            size="xl"
-            color="red"
-            >Remove lesson</FwbButton
-          >
-        </Card>
-      </form>
-    </Transition>
+              <FwbButton @click="showModal()" data-testid="updateLesson" size="xl" color="red"
+                >Remove lesson</FwbButton
+              >
+            </div>
+          </Card>
+        </form>
+      </Transition>
+    </div>
   </div>
 
-
-  <!-- <fwb-modal v-if="isShowModal" @close="closeModal">
+  <fwb-modal v-if="isShowModal" @close="closeModal">
     <template #header>
       <div class="flex items-center text-lg">Confirm delete</div>
     </template>
@@ -168,8 +161,8 @@ const dateFormat = (date: Date) => {
     <template #footer>
       <div class="flex justify-between">
         <fwb-button @click="closeModal" color="alternative"> Cancel </fwb-button>
-        <fwb-button @click="closeModal" color="red"> Remove </fwb-button>
+        <fwb-button @click="removeAndClose()" color="red"> Remove </fwb-button>
       </div>
     </template>
-  </fwb-modal> -->
+  </fwb-modal>
 </template>

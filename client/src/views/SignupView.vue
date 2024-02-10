@@ -30,54 +30,64 @@ async function submitSignup() {
     errorMessage.value = error instanceof Error ? error.message : DEFAULT_SERVER_ERROR
   }
 }
-
 </script>
 
 <template>
-  <PageForm heading="Sign up for an account" formLabel="Signup" @submit="submitSignup">
-    <template #default>
-      <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
+  <div class="background-container h-screen">
+    <PageForm heading="Sign up for an account" formLabel="Signup" @submit="submitSignup">
+      <template #default>
+        <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
 
-      <FwbInput
-        label="Password"
-        id="password"
-        name="password"
-        type="password"
-        autocomplete="current-password"
-        v-model="userForm.password"
-        :required="true"
-      />
-      <FwbInput label="First name" type="text" v-model="userForm.firstName" :required="true" />
+        <FwbInput
+          label="Password"
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          v-model="userForm.password"
+          :required="true"
+        />
+        <FwbInput label="First name" type="text" v-model="userForm.firstName" :required="true" />
 
-      <FwbInput label="Last name" type="text" v-model="userForm.lastName" :required="true" />
+        <FwbInput label="Last name" type="text" v-model="userForm.lastName" :required="true" />
 
-      <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
-        You have successfully signed up! You can now log in.
-        <RouterLink
-          :to="{ name: 'Login' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Go to the login page</RouterLink
-        >
-      </FwbAlert>
-      <AlertError :message="errorMessage">
-        {{ errorMessage }}
-      </AlertError>
+        <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
+          You have successfully signed up! You can now log in.
+          <RouterLink
+            :to="{ name: 'Login' }"
+            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >Go to the login page</RouterLink
+          >
+        </FwbAlert>
 
-      <div class="grid">
-        <FwbButton color="green" type="submit" size="xl">Sign up</FwbButton>
-      </div>
-    </template>
+        <AlertError :message="errorMessage">
+          {{ errorMessage }}
+        </AlertError>
 
-    <template #footer>
-      <FwbAlert class="bg-transparent text-center">
-        Already a member?
-        {{ ' ' }}
-        <RouterLink
-          :to="{ name: 'Login' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Log in</RouterLink
-        >
-      </FwbAlert>
-    </template>
-  </PageForm>
+        <div class="grid">
+          <FwbButton color="green" type="submit" size="xl">Sign up</FwbButton>
+        </div>
+      </template>
+
+      <template #footer>
+        <FwbAlert class="bg-transparent text-center">
+          Already a member?
+          {{ ' ' }}
+          <RouterLink
+            :to="{ name: 'Login' }"
+            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >Log in</RouterLink
+          >
+        </FwbAlert>
+      </template>
+    </PageForm>
+  </div>
 </template>
+
+<style scoped>
+.background-container {
+  background-image: url('@/assets/dots.jpg');
+  background-size: contain;
+  background-position: center;
+}
+</style>

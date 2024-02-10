@@ -4,56 +4,53 @@ import { FwbButton } from 'flowbite-vue'
 
 <template>
   <!-- landing page with Tailwind -->
-  <div class="bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-6 py-8">
-      <div class="items-center lg:flex">
-        <div class="lg:w-1/2">
-          <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100">
+  <div class="background-container h-max">
+    <div class="container mx-auto flex h-screen items-center justify-center px-6 py-8">
+      <div class="text-center">
+        <div class="">
+          <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Start learning new skills today!
           </h2>
-
-          <p class="mt-4 text-gray-500 dark:text-gray-400 lg:max-w-md">
-            Explore various live classes led by our community members or lead a class yourself to share your unique talents.
+          <p class="mx-auto mt-4 text-xl text-gray-900 dark:text-gray-400 lg:max-w-md">
+            Explore various live classes led by our community members or lead a class yourself to
+            share your unique talents.
           </p>
-
-          <div class="mt-6 flex items-center gap-2">
-            <!-- prettier-ignore -->
-            <FwbButton
-              component="RouterLink"
-              tag="router-link"
-              color="green"
-              :href="({ name: 'Signup' } as any)"
-            >
-              Get Started
-            </FwbButton>
-            <FwbButton
-              component="RouterLink"
-              tag="router-link"
-              color="alternative"
-              :href="{ name: 'Login' } as any"
-            >
-              Log in
-            </FwbButton>
-          </div>
         </div>
+        <div class="mt-6">
+          <!-- prettier-ignore -->
+          <FwbButton
+            component="RouterLink"
+            tag="router-link"
+            :href="({ name: 'Signup' } as any)"
+            size="xl"
+            class="btn"
+          >
+            Get Started
+          </FwbButton>
 
-        <div class="mt-8 lg:mt-0 lg:w-1/2">
-          <div class="flex items-center justify-center lg:justify-end">
-            <div class="max-w-lg">
-              <!-- <picture>
-                <source srcset="../assets/landing-4.avif" type="image/avif" />
-                <source srcset="../assets/landing-4.webp" type="image/webp" />
-                <source srcset="../assets/landing-4.jpg" type="image/jpeg" />
-                <img
-                  class="h-64 w-full rounded-md object-cover object-center shadow"
-                  src="../assets/landing-4.jpg"
-                  alt=""
-                />
-              </picture> -->
-            </div>
-          </div>
+          <!-- prettier-ignore -->
+          <FwbButton
+            component="RouterLink"
+            tag="router-link"
+            color="alternative"
+            :href="({ name: 'Login' } as any)"
+            class="ml-2"
+            size="xl"
+          >
+            Log in
+          </FwbButton>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.background-container {
+  background-image: url('@/assets/dots.jpg');
+  background-size: cover;
+}
+.btn {
+  background-color: #d5573b;
+}
+</style>

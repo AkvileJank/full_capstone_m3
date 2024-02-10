@@ -29,6 +29,8 @@ export default authenticatedProcedure
       select: {
         id: true,
         title: true,
+        dateTime: true,
+        location: true
       },
       relations: ['attendingUsers'],
       order: {
@@ -52,5 +54,5 @@ export default authenticatedProcedure
     //   return !studentIds.includes(authUser.id)
     // })
 
-    return { lessons, totalPages }
+    return { lessons, totalPages, totalCount }
   })

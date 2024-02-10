@@ -1,24 +1,28 @@
 <script lang="ts" setup>
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
-import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
+import { FwbButton, FwbHeading } from 'flowbite-vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
 import Lesson from '@/components/Lesson.vue'
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 6
 
 const currentPage = ref(1)
 const totalPages = ref(1)
 const lessonsFound = ref<LessonPreview[]>([])
+const totalCount = ref(0)
+const allJoinedLessons = ref<LessonPreview[]>([])
 
 async function fetchLessons() {
   const result = await trpc.lesson.findAll.query({ page: currentPage.value, pageSize: PAGE_SIZE })
   lessonsFound.value = result.lessons
   totalPages.value = result.totalPages
+  totalCount.value = result.totalCount
 }
 
 onBeforeMount(async () => {
   await fetchLessons()
+  allJoinedLessons.value = await trpc.user.findJoinedLessons.query()
 })
 
 const changePage = (newPage: number) => {
@@ -26,22 +30,66 @@ const changePage = (newPage: number) => {
   fetchLessons()
 }
 
+const isJoined = (lesson: LessonPreview) => {
+  return allJoinedLessons.value.some((joinedLesson) => joinedLesson.id === lesson.id)
+}
 </script>
 
 <template>
-  <FwbHeading tag="h4" class="mb-6">Browse lessons to join:</FwbHeading>
+  <div class="cont">
+    <img class="demo-bg" src="../assets/91002.jpg" alt="" />
+    <div class="container mx-auto px-6 py-8">
+      <FwbHeading tag="h4" class="mb-6">Browse all lessons:</FwbHeading>
 
-  <div class="DashboardView">
-    <div v-if="lessonsFound.length" data-testid="projectList">
-      <Lesson v-for="lesson in lessonsFound" :key="lesson.id" :lesson="lesson" />
+      <div class="DashboardView">
+        <div
+          v-if="lessonsFound.length"
+          data-testid="projectList"
+          class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
+        >
+          <Lesson
+            v-for="lesson in lessonsFound"
+            :key="lesson.id"
+            :lesson="lesson"
+            :class="{ joined: isJoined(lesson) }"
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-6">
+        <FwbButton @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
+          Previous
+        </FwbButton>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <FwbButton @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
+          Next
+        </FwbButton>
+      </div>
     </div>
   </div>
-
-  <FwbButton @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
-    Previous Page
-  </FwbButton>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <FwbButton @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
-    Next Page
-  </FwbButton>
 </template>
+<style scoped>
+.demo-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.demo-bg {
+  opacity: 0.3;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  position: relative;
+}
+
+.joined {
+  background-color: #ace49c;
+  opacity: 0.7;
+  position:;
+}
+</style>

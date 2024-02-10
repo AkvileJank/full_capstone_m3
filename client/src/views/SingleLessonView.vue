@@ -6,6 +6,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { UserBare } from '@server/entities/user'
 import Card from '@/components/Card.vue'
 import useErrorMessage from '@/composables/useErrorMessage'
+import { CalendarIcon, MapPinIcon, ClockIcon } from '@heroicons/vue/24/outline'
 
 type Student = Pick<UserBare, 'firstName' | 'lastName'> // this should be in User entity types
 
@@ -17,8 +18,8 @@ const students = ref<Student[]>()
 
 const lessonId = Number(route.params.id)
 
-const isOwned = ref<boolean>()
-const isJoined = ref<boolean>()
+const isLessonOwned = ref<boolean>()
+const isLessonJoined = ref<boolean>()
 
 const lessonDate = ref<string>('')
 const hours = ref<string>('')
@@ -31,10 +32,9 @@ onBeforeMount(async () => {
   hours.value = String(new Date(lessonFound.dateTime).getHours()).padStart(2, '0')
   minutes.value = String(new Date(lessonFound.dateTime).getMinutes()).padStart(2, '0')
 
-  isOwned.value = await trpc.lesson.isOwned.query({ id: lessonId })
-  isJoined.value = await trpc.lesson.isJoined.query({ id: lessonId })
-
-  students.value = await trpc.lesson.findAttendingUsers.query({ id: lessonId })
+  isLessonOwned.value = await trpc.lesson.isOwned.query({ id: lessonId })
+  isLessonJoined.value = !isLessonOwned.value ? await trpc.lesson.isJoined.query({ id: lessonId }) : undefined
+  students.value = isLessonOwned.value ? await trpc.lesson.findAttendingUsers.query({ id: lessonId }) : []
 })
 
 const [joinLesson, errorMessage] = useErrorMessage(async () => {
@@ -52,66 +52,69 @@ const [sendEmail] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <button @click="sendEmail()">Email</button>
+  <div class="container mx-auto px-6 py-8">
 
-  <div v-if="lesson">
-    <div class="mb-4 flex flex-row">
-      <FwbHeading tag="h1" class="mb-0 !text-xl">
-        {{ lesson.title }}
-      </FwbHeading>
-    </div>
+    <!-- <button @click="sendEmail()">Email</button> -->
 
-    <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
-      <Card>
-        <div class="mb-3">
-          <h3 class="font-bold">Date:</h3>
-          <p>{{ lessonDate }}</p>
-        </div>
+    <div v-if="lesson">
+      <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
+        <Card>
+          <div class="mb-4 flex flex-row">
+            <FwbHeading tag="h1" class="mb-3 !text-xl">
+              {{ lesson.title }}
+            </FwbHeading>
+          </div>
+          <div class="flex gap-10 ">
+            <div class="mb-3 flex gap-2">
+              <CalendarIcon class="inline h-5 w-4"></CalendarIcon>
+              <p>{{ lessonDate }}</p>
+            </div>
 
-        <div class="mb-3">
-          <h3 class="font-bold">Time:</h3>
-          <p>{{ `${hours}:${minutes}` }}</p>
-        </div>
+            <div class="mb-3 flex gap-2">
+              <ClockIcon class="inline h-5 w-4"></ClockIcon>
+              <p>{{ `${hours}:${minutes}` }}</p>
+            </div>
 
-        <div class="mb-3">
-          <h3 class="font-bold">Duration:</h3>
-          <p>{{ `${lesson.duration} min` }}</p>
-        </div>
+            <div class="mb-3 flex gap-2">
+              <h3 class="inline font-bold">Duration:</h3>
+              <p>{{ `${lesson.duration} min` }}</p>
+            </div>
+          </div>
 
-        <div class="mb-3">
-          <h3 class="font-bold">Location:</h3>
-          <p>{{ lesson.location }}</p>
-        </div>
+          <div class="mb-6 flex gap-2">
+            <MapPinIcon class="inline h-5 w-4"></MapPinIcon>
+            <p>{{ lesson.location }}</p>
+          </div>
 
-        <div class="mb-3" v-if="!isOwned">
-          <h3 class="font-bold">Teacher:</h3>
-          <p>{{ lesson.teacher }}</p>
-        </div>
+          <div class="mb-2" v-if="!isLessonOwned">
+            <h3 class="font-bold">Teacher:</h3>
+            <p>{{ lesson.teacher }}</p>
+          </div>
 
-        <div class="mb-3">
-          <h3 class="font-bold">Capacity:</h3>
-          <p>{{ lesson.capacity }}</p>
-        </div>
+          <div class="mb-2">
+            <h3 class="font-bold">Capacity:</h3>
+            <p>{{ lesson.capacity }}</p>
+          </div>
 
-        <div class="mb-3">
-          <h3 class="font-bold">Description:</h3>
-          <p>{{ lesson.description }}</p>
-        </div>
+          <div class="mb-2">
+            <h3 class="font-bold">Description:</h3>
+            <p>{{ lesson.description }}</p>
+          </div>
 
-        <div v-if="isOwned">
-          <h3 class="font-bold">Students:</h3>
-          <ul v-if="lesson.attendingUsers.length > 0">
-            <li v-for="(student, index) in students" :key="student.firstName + student.lastName">
-              {{ index + 1 + '. ' + student.firstName + ' ' + student.lastName }}
-            </li>
-          </ul>
-          <p v-else>No students at the moment</p>
-        </div>
+          <div v-if="isLessonOwned">
+            <h3 class="font-bold">Students:</h3>
+            <ul v-if="lesson.attendingUsers.length > 0">
+              <li v-for="(student, index) in students" :key="student.firstName + student.lastName">
+                {{ index + 1 + '. ' + student.firstName + ' ' + student.lastName }}
+              </li>
+            </ul>
+            <p v-else>No students at the moment</p>
+          </div>
 
-        <!-- prettier-ignore -->
-        <div class="mt-8">
+          <!-- prettier-ignore -->
+          <div class="mt-8">
         <FwbButton
-          v-if="isOwned"
+          v-if="isLessonOwned"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'LessonUpdate' } as any)"
@@ -121,7 +124,7 @@ const [sendEmail] = useErrorMessage(async () => {
 
            <FwbButton
            @click="removeFromLesson"
-          v-else-if="isJoined"
+          v-else-if="isLessonJoined"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'Dashboard' } as any)"
@@ -142,7 +145,8 @@ const [sendEmail] = useErrorMessage(async () => {
           >Join lesson</FwbButton
         >
       </div>
-      </Card>
-    </Transition>
+        </Card>
+      </Transition>
+    </div>
   </div>
 </template>

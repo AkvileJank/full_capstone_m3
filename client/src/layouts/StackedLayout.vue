@@ -21,6 +21,7 @@ const navigation = computed(() =>
 </script>
 
 <template>
+  <div class="cont">
   <FwbNavbar>
     <template #default="{ isShowMenu }">
       <FwbNavbar-collapse :isShowMenu="isShowMenu">
@@ -39,10 +40,16 @@ const navigation = computed(() =>
       </FwbNavbar-collapse>
     </template>
   </FwbNavbar>
-
+</div>
   <main>
-    <div class="container mx-auto px-6 py-8">
-      <RouterView />
-    </div>
+    <!-- <div class="container mx-auto px-6 py-8"> -->
+    <RouterView />
+    <!-- </div> -->
   </main>
 </template>
+
+<style>
+.cont {
+  position: relative;
+}
+</style>

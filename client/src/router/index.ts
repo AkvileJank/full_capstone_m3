@@ -47,6 +47,16 @@ const router = createRouter({
           name: 'JoinConfirmation',
           component: () => import('../views/ConfirmationView.vue'),
         },
+        {
+          path: 'lessons/joinedLessons',
+          name: 'JoinedLessons',
+          component: () => import('../views/JoinedLessonsView.vue'),
+        },
+        {
+          path: 'lessons/createdLessons',
+          name: 'CreatedLessons',
+          component: () => import('../views/CreatedLessonsView.vue'),
+        },
       ],
     },
     {

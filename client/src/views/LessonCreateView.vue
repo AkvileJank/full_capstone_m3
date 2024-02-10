@@ -7,6 +7,7 @@ import useErrorMessage from '@/composables/useErrorMessage'
 import AlertError from '@/components/AlertError.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import calendarFormatter from '@/utils/calendarFormatter'
 
 const router = useRouter()
 
@@ -19,15 +20,6 @@ const lessonForm = ref({
   description: '',
 })
 
-// this can be moved as a util
-const dateFormat = (date: Date) => {
-  const dateString = date.toLocaleDateString('en-CA')
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  const timeString = `${hours}:${minutes}`
-  return `${dateString} ${timeString}`
-}
-
 const [createLesson, errorMessage] = useErrorMessage(async () => {
   await trpc.lesson.create.mutate(lessonForm.value)
 
@@ -36,7 +28,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
+  <div class="container mx-auto px-6 py-8">
     <form aria-label="Lesson" @submit.prevent="createLesson">
       <div class="space-y-6">
         <FwbHeading tag="h4">Create a new lesson</FwbHeading>
@@ -59,7 +51,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
           >
           <VueDatePicker
             v-model="lessonForm.dateTime"
-            :format="dateFormat"
+            :format="calendarFormatter"
             placeholder="Select date and time"
           />
         </div>
@@ -118,15 +110,16 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
       </div>
 
       <AlertError :message="errorMessage" />
-
-      <div class="mt-6 grid grid-cols-2 items-center gap-3">
-        <FwbButton type="submit">Save</FwbButton>
-        <RouterLink
-          class="text-center text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          component="RouterLink"
-          :to="{ name: 'Dashboard' }"
-          >Cancel</RouterLink
-        >
+      <div class="flex justify-center gap-6">
+        <div class="mt-6 grid grid-cols-2 items-center gap-3">
+          <FwbButton type="submit" size="lg">Save</FwbButton>
+          <RouterLink
+            class="text-center text-lg font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            component="RouterLink"
+            :to="{ name: 'Dashboard' }"
+            >Cancel</RouterLink
+          >
+        </div>
       </div>
     </form>
   </div>

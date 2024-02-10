@@ -16,8 +16,10 @@ export default authenticatedProcedure.query(
 )
 
 function formatLessons(lessons: Lesson[]) {
-  return lessons.map(lesson => ({
+  return lessons.map((lesson) => ({
     id: lesson.id,
-    title: lesson.title
+    title: lesson.title,
+    dateTime: lesson.dateTime,
+    location: lesson.location,
   }))
 }
