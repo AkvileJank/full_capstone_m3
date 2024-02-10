@@ -44,8 +44,8 @@ const schema = z
       logging: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
       synchronize: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
     }),
-    emailUser: z.string().email().default('email@email.com'),
-    emailPass: z.string().default('noPass'),
+    emailUser: z.string().email(),
+    emailPass: z.string(),
   })
   .readonly()
 

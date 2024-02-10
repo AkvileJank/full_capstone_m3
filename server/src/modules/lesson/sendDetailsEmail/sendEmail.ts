@@ -1,31 +1,32 @@
 import nodemailer from 'nodemailer'
 import config from '@server/config'
-import { LessonBare } from '@server/entities/lesson'
+import { User } from '@server/entities'
+import { pickEmailText } from './texts'
+import type { LessonView } from '.'
 
 export default async (
-  recipientEmail: string,
-  lesson: LessonBare,
-  teacherName: string
+  student: Pick<User, 'firstName'| 'email'>,
+  lesson: LessonView,
+  isSignedUp?: boolean,
+  isJoined?: boolean,
+  isRemoved?: boolean
+
+  // teacherName: string
 ) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: config.emailUser,
-      pass: config.emailPass,
+      user: config.emailUser, // gmail account for project
+      pass: config.emailPass, // psw for that account
     },
   })
 
+  const mailText = pickEmailText(lesson, student.firstName, {isSignedUp, isJoined, isRemoved})
+
   const mailOptions = {
-    from: 'emailforbe3@gmail.com',
-    to: recipientEmail,
-    subject: `Information about your joined lesson: "${lesson.title}"`,
-    text: `Here are the details for the lesson:\n
-    Title: ${lesson.title}\n
-    Date: ${lesson.dateTime}\n
-    Location: ${lesson.location}\n
-    Description: ${lesson.location}\n
-    Teacher: ${teacherName}
-    `,
+    from: 'emailforbe3@gmail.com', // config.emailUser
+    to: student.email,
+    ...mailText
   }
 
   if (config.env !== 'test') {

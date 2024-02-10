@@ -27,7 +27,8 @@ export default authenticatedProcedure
         capacity: lesson.capacity,
         teacher: teacherName,
         description: lesson.description,
-        dateTime: lesson.dateTime
+        dateTime: lesson.dateTime,
+        duration: lesson.duration
       }
     }
     return lesson
