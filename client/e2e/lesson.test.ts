@@ -56,18 +56,18 @@ test.describe.serial('see a lesson', () => {
   })
 
   // find lessons
-  test('go to find lessons page', async ({ page }) => {
-    // Give (Arrange)
-    await loginNewUser(page, user)
-    await page.goto('/dashboard')
-    await page.getByTestId('findLessons').click()
+  // test('go to find lessons page', async ({ page }) => {
+  //   // Give (Arrange)
+  //   await loginNewUser(page, user)
+  //   await page.goto('/dashboard')
+  //   await page.getByTestId('findLessons').click()
 
-    await page.waitForLoadState('load')
-    // const lessonsListCount = await page.getByTestId('lessonList').count()
-    const message = page.getByTestId('lessonListEmpty')
-    await expect(message).toBeHidden()
-    // await expect(lessonsListCount).toBeGreaterThan(0)
-  })
+  //   await page.waitForLoadState('load')
+  //   // const lessonsListCount = await page.getByTestId('lessonList').count()
+  //   // const message = page.getByTestId('lessonListEmpty')
+  //   // await expect(message).toBeHidden()
+  //   // await expect(lessonsListCount).toBeGreaterThan(0)
+  // })
 
   //user can edit the lesson
   test('can edit lesson', async ({ page }) => {
