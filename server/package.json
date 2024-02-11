@@ -73,6 +73,7 @@
       "pg-promise",
       "slonik",
       "sqlite3"
-    ]
+    ],
+    "noExternal": ["superjson"]
   }
 }
