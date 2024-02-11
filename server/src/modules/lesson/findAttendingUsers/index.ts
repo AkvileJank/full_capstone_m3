@@ -1,4 +1,4 @@
-import { Lesson, LessonBare, lessonSchema } from '@server/entities/lesson'
+import { Lesson, lessonSchema } from '@server/entities/lesson'
 import { User } from '@server/entities'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notAllowed } from '../utils/tRPCErrors'

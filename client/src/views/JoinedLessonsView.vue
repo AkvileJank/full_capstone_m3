@@ -3,7 +3,7 @@ import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
 import Lesson from '@/components/Lesson.vue'
-import type { LessonPreview } from '@server/entities/lesson'
+import type { LessonPreview } from '@mono/server/src/shared/entities'
 
 const lessonsJoined = ref<LessonPreview[]>([])
 

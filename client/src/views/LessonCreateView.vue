@@ -2,7 +2,7 @@
 import { trpc } from '@/trpc'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { FwbButton, FwbHeading, FwbInput, FwbRange, FwbTextarea } from 'flowbite-vue'
+import { FwbButton, FwbHeading, FwbInput, FwbTextarea } from 'flowbite-vue'
 import useErrorMessage from '@/composables/useErrorMessage'
 import AlertError from '@/components/AlertError.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'

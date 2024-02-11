@@ -27,10 +27,6 @@ function removeAndClose() {
   router.push({ name: 'Dashboard' })
 }
 
-function showModal() {
-  isShowModal.value = true
-}
-
 onBeforeMount(async () => {
   const [lessonFound] = await Promise.all([trpc.lesson.findById.query({ id: lessonId })])
   lesson.value = lessonFound
@@ -55,13 +51,13 @@ const [removeLesson] = useErrorMessage(async () => {
       <div class="mb-4 flex flex-row">
         <FwbHeading tag="h1" class="mb-0 !text-xl"> Enter the changes: </FwbHeading>
       </div>
-
+      <!-- eslint-disable vue/require-toggle-inside-transition -->
       <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
         <form aria-label="Lesson" @submit.prevent="updateLesson">
           <Card>
             <div class="mb-3">
               <FwbInput
-              name="title"
+                name="title"
                 aria-label="Lesson title"
                 v-model="lesson.title"
                 :minlength="2"

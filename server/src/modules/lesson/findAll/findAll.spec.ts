@@ -22,7 +22,7 @@ it('should return a list of lessons from other users', async () => {
   const pageSize = 5
   const { findAll } = lessonRouter.createCaller(authContext({ db }, user1))
 
-  const result = await findAll({page, pageSize})
+  const result = await findAll({ page, pageSize })
 
   result.lessons.forEach((lesson) =>
     expect(lesson).not.toContain({

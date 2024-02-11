@@ -24,7 +24,7 @@ it('should remove a lesson', async () => {
     ...lessons[0],
     id: undefined, // after remove id is returned as undefined
     teacher: undefined,
-    attendingUsers: []
+    attendingUsers: [],
   })
 
   // remaining lessons should not contain deleted one

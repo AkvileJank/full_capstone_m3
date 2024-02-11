@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { loginNewUser, reportBug } from './utils/api'
+import { loginNewUser} from './utils/api'
 import { random, fakeUser } from './utils/fakeData'
 
 const fakeLesson = () => ({

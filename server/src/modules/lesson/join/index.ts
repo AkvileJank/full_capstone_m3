@@ -1,7 +1,9 @@
-import { LessonBare, lessonSchema } from '@server/entities/lesson'
+import { lessonSchema } from '@server/entities/lesson'
+import type { LessonBare } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { Lesson } from '@server/entities'
-import { AuthUser, User } from '@server/entities/user'
+import { User } from '@server/entities/user'
+import type { AuthUser } from '@server/entities/user'
 import {
   notFound,
   lessonFull,

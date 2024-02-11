@@ -3,7 +3,7 @@ import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
 import Lesson from '@/components/Lesson.vue'
-import type { LessonPreview } from '@server/entities/lesson'
+import type { LessonPreview } from '@mono/server/src/shared/entities'
 
 const lessonsCreated = ref<LessonPreview[]>([])
 const lessonsJoined = ref<LessonPreview[]>([])
@@ -24,10 +24,10 @@ onBeforeMount(async () => {
         <div
           v-if="lessonsJoined.length"
           data-testid="projectList"
-          class="grid grid-flow-col justify-stretch lg:gap-x-6"
+          class="grid grid-flow-col justify-stretch gap-x-6"
         >
           <Lesson
-            v-for="lesson in lessonsJoined.slice(0 - 4)"
+            v-for="lesson in lessonsJoined.slice(0 - 3)"
             :key="lesson.id"
             :lesson="lesson"
             class="card"
@@ -68,9 +68,9 @@ onBeforeMount(async () => {
       <div
         v-if="lessonsCreated.length"
         data-testid="lessonsCreatedList"
-        class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-x-6"
       >
-        <Lesson v-for="lesson in lessonsCreated.slice(0 - 4)" :key="lesson.id" :lesson="lesson" />
+        <Lesson v-for="lesson in lessonsCreated.slice(0 - 3)" :key="lesson.id" :lesson="lesson" />
       </div>
       <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
 
@@ -109,11 +109,6 @@ onBeforeMount(async () => {
 <style scoped>
 .btn {
   background-color: #d5573b;
-}
-
-.demo-wrap {
-  overflow: hidden;
-  position: relative;
 }
 
 .demo-bg {

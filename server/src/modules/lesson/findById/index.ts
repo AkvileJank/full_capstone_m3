@@ -1,6 +1,6 @@
-import { Lesson, LessonBare, lessonSchema } from '@server/entities/lesson'
+import { Lesson,lessonSchema } from '@server/entities/lesson'
+import type { LessonBare } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
-import { User } from '@server/entities'
 import { notFound } from '../utils/tRPCErrors'
 import getTeacherName from '../utils/getTeacherName'
 

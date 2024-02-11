@@ -1,11 +1,11 @@
-import { Lesson, User } from '@server/entities'
-import { LessonBare } from '@server/entities/lesson'
+import { Lesson } from '@server/entities'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { validates } from '@server/utils/validation'
 import { Not } from 'typeorm'
 import { z } from 'zod'
 
-//find lessons created by other users
+// find lessons created by other users
+
 type InputPagination = {
   page: number
   pageSize: number

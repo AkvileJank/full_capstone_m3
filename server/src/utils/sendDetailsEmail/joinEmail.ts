@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer'
 import config from '@server/config'
 import { User } from '@server/entities'
-import { joinEmail } from './texts'
 import type { LessonDetails } from '@server/entities/lesson'
+import { joinEmail } from './texts'
 
 export default async (
   student: Pick<User, 'firstName' | 'email'>,

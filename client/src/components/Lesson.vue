@@ -2,7 +2,7 @@
 import { ArrowRightIcon, CalendarIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 import { FwbButton } from 'flowbite-vue'
 import Card from './Card.vue'
-import type { LessonPreview } from '@server/entities/lesson'
+import type { LessonPreview } from '@mono/server/src/shared/entities'
 import dateFormatter from '../utils/dateFormatter'
 
 const props = defineProps<{
