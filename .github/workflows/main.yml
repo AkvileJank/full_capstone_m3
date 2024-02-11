@@ -79,6 +79,9 @@ jobs:
 
       - name: Test client E2E
         run: npm run test:e2e -w=client
+        env:
+          VITE_API_ORIGIN: http://localhost:3000
+          VITE_API_PATH: /api/v1/trpc
 
       # Playwright generates a report of the E2E tests. We will
       # upload that report as an artifact so that we can download
