@@ -3,6 +3,9 @@ name: Test, Build, and Deploy
 on: push
 
 jobs:
+  env:
+    EMAIL_USER: ${{secrets.EMAIL_USER}}
+    EMAIL_PASS: ${{secrets.EMAIL_PASS}}
   test:
     runs-on: ubuntu-22.04
     services:
@@ -53,8 +56,6 @@ jobs:
           DB_NAME: testdb
           DB_HOST: localhost
           PORT: 3000
-          EMAIL_USER: ${{secrets.EMAIL_USER}}
-          EMAIL_PASS: ${{secrets.EMAIL_PASS}}
 
       - name: Build front end for E2E tests
         run: npm run build -w=client
