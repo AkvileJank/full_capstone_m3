@@ -2,10 +2,11 @@ name: Test, Build, and Deploy
 
 on: push
 
+env:
+  EMAIL_USER: ${{secrets.EMAIL_USER}}
+  EMAIL_PASS: ${{secrets.EMAIL_PASS}}
+
 jobs:
-  env:
-    EMAIL_USER: ${{secrets.EMAIL_USER}}
-    EMAIL_PASS: ${{secrets.EMAIL_PASS}}
   test:
     runs-on: ubuntu-22.04
     services:
