@@ -50,7 +50,7 @@ test.describe.serial('signup and login sequence', () => {
     await page.reload()
     await expect(dashboardLink).toBeVisible()
   })
-})
+
 
 //7
 // Running logout test in isolation.
@@ -73,4 +73,6 @@ test('visitor can logout', async ({ page }) => {
   await page.goto('/dashboard')
   await expect(logoutLink).toBeHidden()
   await expect(page).toHaveURL('/login')
+})
+
 })
