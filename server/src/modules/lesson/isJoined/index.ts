@@ -1,5 +1,6 @@
 import { Lesson, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
+import { notFound } from '../utils/tRPCErrors'
 
 export default authenticatedProcedure
   .input(
@@ -14,7 +15,7 @@ export default authenticatedProcedure
       },
       relations: ['attendingUsers'],
     })
+    if (!lesson) notFound()
 
-    const studentIds = lesson?.attendingUsers.map((user) => user.id)
-    return studentIds!.includes(authUser.id) // return true if authUser joined this lesson
+    return lesson!.attendingUsers.some((user) => user.id === authUser.id)
   })

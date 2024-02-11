@@ -1,6 +1,6 @@
 import { Lesson, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
-import { notAllowed, notFound } from '../tRPCErrors'
+import { notAllowed, notFound } from '../utils/tRPCErrors'
 
 export default authenticatedProcedure
   .input(
@@ -8,7 +8,7 @@ export default authenticatedProcedure
       id: true,
     })
   )
-  .mutation(async ({ input: {id}, ctx: { db, authUser } }) => {
+  .mutation(async ({ input: { id }, ctx: { db, authUser } }) => {
     const lesson = await db.getRepository(Lesson).findOneBy({
       id,
     })

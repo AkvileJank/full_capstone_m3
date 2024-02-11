@@ -10,14 +10,12 @@ const PAGE_SIZE = 6
 const currentPage = ref(1)
 const totalPages = ref(1)
 const lessonsFound = ref<LessonPreview[]>([])
-const totalCount = ref(0)
 const allJoinedLessons = ref<LessonPreview[]>([])
 
 async function fetchLessons() {
   const result = await trpc.lesson.findAll.query({ page: currentPage.value, pageSize: PAGE_SIZE })
   lessonsFound.value = result.lessons
   totalPages.value = result.totalPages
-  totalCount.value = result.totalCount
 }
 
 onBeforeMount(async () => {
@@ -37,14 +35,14 @@ const isJoined = (lesson: LessonPreview) => {
 
 <template>
   <div class="cont">
-    <img class="demo-bg" src="../assets/91002.jpg" alt="" />
+    <img class="demo-bg h-screen bg-cover" src="../assets/91002.jpg" alt="" />
     <div class="container mx-auto px-6 py-8">
       <FwbHeading tag="h4" class="mb-6">Browse all lessons:</FwbHeading>
 
       <div class="DashboardView">
         <div
           v-if="lessonsFound.length"
-          data-testid="projectList"
+          data-testid="lessonList"
           class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
         >
           <Lesson
@@ -54,6 +52,7 @@ const isJoined = (lesson: LessonPreview) => {
             :class="{ joined: isJoined(lesson) }"
           />
         </div>
+        <FwbAlert v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
       </div>
 
       <div class="flex justify-center gap-6">
@@ -69,18 +68,12 @@ const isJoined = (lesson: LessonPreview) => {
   </div>
 </template>
 <style scoped>
-.demo-wrap {
-  overflow: hidden;
-  position: relative;
-}
-
 .demo-bg {
   opacity: 0.3;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height: auto;
 }
 
 .container {
@@ -90,6 +83,5 @@ const isJoined = (lesson: LessonPreview) => {
 .joined {
   background-color: #ace49c;
   opacity: 0.7;
-  position:;
 }
 </style>

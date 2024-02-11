@@ -30,7 +30,7 @@ export default authenticatedProcedure
         id: true,
         title: true,
         dateTime: true,
-        location: true
+        location: true,
       },
       relations: ['attendingUsers'],
       order: {
@@ -48,11 +48,5 @@ export default authenticatedProcedure
     })
     const totalPages = Math.ceil(totalCount / pageSize)
 
-    // Return only those lessons that authUser has not joined yet
-    // const availableLessons = lessons.filter((lesson) => {
-    //   const studentIds = lesson.attendingUsers.map((user) => user.id)
-    //   return !studentIds.includes(authUser.id)
-    // })
-
-    return { lessons, totalPages, totalCount }
+    return { lessons, totalPages }
   })

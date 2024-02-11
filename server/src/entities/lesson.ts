@@ -65,4 +65,16 @@ export const lessonUpdateSchema = {
   id: z.number().positive().int(),
 }
 
-export type LessonPreview = Pick<LessonBare, 'id' | 'title' | 'dateTime' | 'location'>
+export type LessonPreview = Pick<
+  LessonBare,
+  'id' | 'title' | 'dateTime' | 'location'
+>
+export type LessonDetails = {
+  title: string
+  dateTime: Date
+  duration: number
+  location: string
+  capacity: number
+  description: string
+  teacher: string
+}

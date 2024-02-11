@@ -29,7 +29,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
 
 <template>
   <div class="container mx-auto px-6 py-8">
-    <form aria-label="Lesson" @submit.prevent="createLesson">
+    <form aria-label="Lesson" @submit.prevent="createLesson" name="Lesson">
       <div class="space-y-6">
         <FwbHeading tag="h4">Create a new lesson</FwbHeading>
 
@@ -40,6 +40,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
             :minlength="2"
             label="Title"
             placeholder="My lesson"
+            name="Title"
           />
         </div>
 
@@ -50,6 +51,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
             >Date and time:</label
           >
           <VueDatePicker
+            data-testid="datepicker"
             v-model="lessonForm.dateTime"
             :format="calendarFormatter"
             placeholder="Select date and time"
@@ -63,9 +65,10 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
             >Duration: (min)</label
           >
           <input
+            data-testid="duration"
             v-model="lessonForm.duration"
-            type="number"
             id="number-input"
+            type="number"
             aria-label="Lesson duration"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             required
@@ -74,6 +77,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
 
         <div class="mt-6">
           <FwbInput
+            name="Location"
             aria-label="Lesson location"
             v-model="lessonForm.location"
             :minlength="2"
@@ -88,9 +92,10 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
             >Capacity:</label
           >
           <input
+            data-testid="capacity"
             v-model="lessonForm.capacity"
-            type="number"
             id="number-input"
+            type="number"
             aria-label="Lesson capacity"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             placeholder="Enter a number"
@@ -100,6 +105,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
 
         <div class="mt-6">
           <FwbTextarea
+            data-testid="description"
             aria-label="Lesson description"
             v-model="lessonForm.description"
             :minlength="2"
@@ -110,6 +116,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
       </div>
 
       <AlertError :message="errorMessage" />
+
       <div class="flex justify-center gap-6">
         <div class="mt-6 grid grid-cols-2 items-center gap-3">
           <FwbButton type="submit" size="lg">Save</FwbButton>

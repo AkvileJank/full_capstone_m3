@@ -7,6 +7,7 @@ import useErrorMessage from '@/composables/useErrorMessage'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import calendarFormatter from '@/utils/calendarFormatter'
+import AlertError from '@/components/AlertError.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -21,8 +22,9 @@ function closeModal() {
 }
 
 function removeAndClose() {
-  isShowModal.value = false
   removeLesson()
+  isShowModal.value = false
+  router.push({ name: 'Dashboard' })
 }
 
 function showModal() {
@@ -37,14 +39,13 @@ onBeforeMount(async () => {
 
 const [updateLesson, errorMessage] = useErrorMessage(async () => {
   await trpc.lesson.update.mutate(lesson.value)
+
   router.push({ name: 'Dashboard' })
 })
 
 const [removeLesson] = useErrorMessage(async () => {
   await trpc.lesson.remove.mutate({ id: lessonId })
 })
-
-
 </script>
 
 <template>
@@ -60,6 +61,7 @@ const [removeLesson] = useErrorMessage(async () => {
           <Card>
             <div class="mb-3">
               <FwbInput
+              name="title"
                 aria-label="Lesson title"
                 v-model="lesson.title"
                 :minlength="2"
@@ -73,7 +75,11 @@ const [removeLesson] = useErrorMessage(async () => {
               >Date and time:</label
             >
             <div class="mb-3">
-              <VueDatePicker v-model="lesson.dateTime" :format="calendarFormatter" id="datepicker" />
+              <VueDatePicker
+                v-model="lesson.dateTime"
+                :format="calendarFormatter"
+                id="datepicker"
+              />
             </div>
 
             <div class="mb-3">
@@ -139,7 +145,11 @@ const [removeLesson] = useErrorMessage(async () => {
             size="xl"
             >Save changes</FwbButton>
 
-              <FwbButton @click="showModal()" data-testid="updateLesson" size="xl" color="red"
+              <FwbButton
+                @click.prevent="isShowModal = true"
+                data-testid="deleteLesson"
+                size="xl"
+                color="red"
                 >Remove lesson</FwbButton
               >
             </div>
@@ -149,7 +159,7 @@ const [removeLesson] = useErrorMessage(async () => {
     </div>
   </div>
 
-  <fwb-modal v-if="isShowModal" @close="closeModal">
+  <fwb-modal v-show="isShowModal" @close="closeModal" data-testid="deleteModal">
     <template #header>
       <div class="flex items-center text-lg">Confirm delete</div>
     </template>
@@ -160,8 +170,8 @@ const [removeLesson] = useErrorMessage(async () => {
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <fwb-button @click="closeModal" color="alternative"> Cancel </fwb-button>
-        <fwb-button @click="removeAndClose()" color="red"> Remove </fwb-button>
+        <fwb-button @click="closeModal()" color="alternative"> Cancel </fwb-button>
+        <fwb-button @click="removeAndClose()" color="red" data-testid="remove"> Remove </fwb-button>
       </div>
     </template>
   </fwb-modal>

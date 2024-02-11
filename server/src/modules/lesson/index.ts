@@ -4,7 +4,6 @@ import findAll from './findAll'
 import remove from './remove'
 import update from './update'
 import join from './join'
-import sendDetailsEmail from './sendDetailsEmail/index'
 import findById from './findById'
 import isJoined from './isJoined'
 import isOwned from './isOwned'
@@ -17,7 +16,6 @@ export default router({
   remove,
   update,
   join,
-  sendDetailsEmail,
   findById,
   isOwned,
   isJoined, // for button switch between join and remove me from lesson??

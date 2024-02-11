@@ -1,6 +1,7 @@
 import { Lesson, LessonBare, lessonSchema } from '@server/entities/lesson'
 import { User } from '@server/entities'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
+import { notAllowed } from '../utils/tRPCErrors'
 
 export default authenticatedProcedure
   .input(
@@ -15,9 +16,7 @@ export default authenticatedProcedure
       },
       relations: ['attendingUsers'],
     })
-
-    //   if(lesson?.teacherId !== authUser.id)
-    // insert error
+    if (lesson?.teacherId !== authUser.id) notAllowed()
 
     return formatUsers(lesson!.attendingUsers)
   })
@@ -25,6 +24,6 @@ export default authenticatedProcedure
 function formatUsers(users: User[]) {
   return users.map((user) => ({
     firstName: user.firstName,
-    lastName: user.lastName
+    lastName: user.lastName,
   }))
 }

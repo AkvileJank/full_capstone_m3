@@ -16,7 +16,7 @@ onBeforeMount(async () => {
 
 <template>
   <div class="cont">
-    <img class="demo-bg" src="../assets/91002.jpg" alt="" />
+    <img class="demo-bg h-screen" src="../assets/91002.jpg" alt="" />
     <div class="container mx-auto h-max px-6 py-8">
       <div class="DashboardView">
         <FwbHeading tag="h4" class="mb-3">You are attending these lessons:</FwbHeading>
@@ -33,15 +33,16 @@ onBeforeMount(async () => {
             class="card"
           />
         </div>
-        <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
+        <FwbAlert v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
 
         <div class="flex justify-end">
           <!-- prettier-ignore -->
           <FwbButton
+          v-show="lessonsJoined.length > 4"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'JoinedLessons' } as any)"
-          data-testid="createProject"
+          data-testid="joinedLessons"
           size="xl"
           color="dark"
         >
@@ -49,13 +50,13 @@ onBeforeMount(async () => {
         </FwbButton>
         </div>
 
-        <div class="mb-6 flex justify-center">
+        <div class="mb-6 mt-4 flex justify-center">
           <!-- prettier-ignore -->
           <FwbButton
         component="RouterLink"
         tag="router-link"
         :href="({ name: 'Lessons' } as any)"
-        data-testid="createProject"
+        data-testid="findLessons"
         size="xl"
        class="btn"
       >
@@ -67,20 +68,16 @@ onBeforeMount(async () => {
       <div
         v-if="lessonsCreated.length"
         data-testid="lessonsCreatedList"
-        class="grid grid-flow-col justify-stretch lg:gap-x-6"
+        class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
       >
-        <Lesson
-          v-for="lesson in lessonsCreated.slice(0 - 4)"
-          :key="lesson.id"
-          :lesson="lesson"
-          class="card2"
-        />
+        <Lesson v-for="lesson in lessonsCreated.slice(0 - 4)" :key="lesson.id" :lesson="lesson" />
       </div>
       <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
 
       <div class="flex justify-end">
         <!-- prettier-ignore -->
         <FwbButton
+        v-show="lessonsCreated.length > 4"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'CreatedLessons' } as any)"
@@ -98,7 +95,7 @@ onBeforeMount(async () => {
         component="RouterLink"
         tag="router-link"
         :href="({ name: 'ProjectCreate' } as any)"
-        data-testid="createProject"
+        data-testid="createLesson"
         size="xl"
         class="btn"
       >
@@ -125,12 +122,10 @@ onBeforeMount(async () => {
   left: 0;
   top: 0;
   width: 100%;
-  height: auto;
 }
 
 .container {
   position: relative;
 }
-</style>
 
-<!-- #5173B3 blue -->
+</style>

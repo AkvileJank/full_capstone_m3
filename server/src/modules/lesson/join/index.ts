@@ -1,4 +1,4 @@
-import { lessonSchema } from '@server/entities/lesson'
+import { LessonBare, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { Lesson } from '@server/entities'
 import { AuthUser, User } from '@server/entities/user'
@@ -7,7 +7,9 @@ import {
   lessonFull,
   userIsTeacher,
   alreadyAttending,
-} from '../tRPCErrors'
+} from '../utils/tRPCErrors'
+import joinEmail from '../../../utils/sendDetailsEmail/joinEmail'
+import getTeacherName from '../utils/getTeacherName'
 
 export default authenticatedProcedure
   .input(lessonSchema.pick({ id: true }))
@@ -27,7 +29,7 @@ export default authenticatedProcedure
         .getRepository(User)
         .findOne({
           where: { id: authUser.id },
-          select: ['id', 'firstName', 'lastName'],
+          select: ['id', 'firstName', 'lastName', 'email'],
         })
 
       const attendees = lesson!.attendingUsers || []
@@ -40,29 +42,31 @@ export default authenticatedProcedure
         .getRepository(Lesson)
         .save({ ...lesson!, attendingUsers: attendees })
 
+      const isUserAttending = checkAttending(lessonWithUser, authUser.id)
+
+      const teacherName = await getTeacherName(db, lesson!.teacherId)
+
+      // send email
+      await joinEmail(fullAuthUser!, { ...lesson!, teacher: teacherName })
+
       return {
-        ...lessonWithUser,
-        attendingUsers: formatUsers(attendees),
+        ...(lessonWithUser as LessonBare),
+        attendingUsers: [],
+        isUserAttending,
       }
     })
     return result
   })
-
-function formatUsers(users: User[]) {
-  return users.map((user) => ({
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-  }))
-}
 
 function lessonErrorHandler(lesson: Lesson, authUser: AuthUser) {
   if (!lesson) notFound()
   if (lesson?.teacherId === authUser.id) userIsTeacher()
   if (lesson?.capacity === 0) lessonFull()
 
-  const isAttending = lesson!.attendingUsers.find(
-    (user) => user.id === authUser.id
-  )
+  const isAttending = checkAttending(lesson, authUser.id)
   if (isAttending) alreadyAttending()
+}
+
+function checkAttending(lesson: Lesson, authUserId: number) {
+  return lesson.attendingUsers.some((user) => user.id === authUserId)
 }

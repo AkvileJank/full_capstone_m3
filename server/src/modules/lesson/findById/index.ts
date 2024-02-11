@@ -1,6 +1,8 @@
 import { Lesson, LessonBare, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { User } from '@server/entities'
+import { notFound } from '../utils/tRPCErrors'
+import getTeacherName from '../utils/getTeacherName'
 
 export default authenticatedProcedure
   .input(
@@ -13,22 +15,13 @@ export default authenticatedProcedure
       id,
     })) as LessonBare
 
-    // if(!lesson) add error to throw if no lesson found
+    if (!lesson) notFound()
 
     if (authUser.id !== lesson.teacherId) {
-      const teacher = await db.getRepository(User).findOneBy({
-        id,
-      })
-
-      const teacherName = `${teacher?.firstName} ${teacher?.lastName}`
+      const teacherName = await getTeacherName(db, lesson.teacherId)
       return {
-        title: lesson.title,
-        location: lesson.location,
-        capacity: lesson.capacity,
+        ...lesson,
         teacher: teacherName,
-        description: lesson.description,
-        dateTime: lesson.dateTime,
-        duration: lesson.duration
       }
     }
     return lesson

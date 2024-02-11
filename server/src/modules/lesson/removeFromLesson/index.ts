@@ -1,6 +1,6 @@
 import { Lesson, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
-import { notAllowed, notFound } from '../tRPCErrors'
+import { notAllowed, notFound } from '../utils/tRPCErrors'
 
 export default authenticatedProcedure
   .input(
@@ -17,10 +17,10 @@ export default authenticatedProcedure
         })
 
       if (!lesson) notFound()
-      // if (lesson!.teacherId !== authUser.id) notAllowed()
+      if (lesson!.teacherId === authUser.id) notAllowed()
 
-      const studentsIds = lesson!.attendingUsers.map((user) => user.id)
-      // if(!studentsIds?.includes(authUser.id)) throw error
+      if (!lesson?.attendingUsers.some((user) => user.id === authUser.id))
+        notAllowed()
 
       lesson!.attendingUsers = lesson!.attendingUsers.filter(
         (user) => user.id !== authUser.id

@@ -1,6 +1,6 @@
 import { lessonUpdateSchema, Lesson } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
-import {notAllowed, notFound, missingId} from '../tRPCErrors'
+import { notAllowed, notFound, missingId } from '../utils/tRPCErrors'
 
 export default authenticatedProcedure
   .input(lessonUpdateSchema)

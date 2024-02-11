@@ -33,8 +33,12 @@ onBeforeMount(async () => {
   minutes.value = String(new Date(lessonFound.dateTime).getMinutes()).padStart(2, '0')
 
   isLessonOwned.value = await trpc.lesson.isOwned.query({ id: lessonId })
-  isLessonJoined.value = !isLessonOwned.value ? await trpc.lesson.isJoined.query({ id: lessonId }) : undefined
-  students.value = isLessonOwned.value ? await trpc.lesson.findAttendingUsers.query({ id: lessonId }) : []
+  isLessonJoined.value = !isLessonOwned.value
+    ? await trpc.lesson.isJoined.query({ id: lessonId })
+    : undefined
+  students.value = isLessonOwned.value
+    ? await trpc.lesson.findAttendingUsers.query({ id: lessonId })
+    : []
 })
 
 const [joinLesson, errorMessage] = useErrorMessage(async () => {
@@ -46,25 +50,19 @@ const [removeFromLesson] = useErrorMessage(async () => {
   await trpc.lesson.removeFromLesson.mutate({ id: lessonId })
 })
 
-const [sendEmail] = useErrorMessage(async () => {
-  await trpc.lesson.sendDetailsEmail.mutate(lesson.value)
-})
 </script>
 
 <template>
   <div class="container mx-auto px-6 py-8">
-
-    <!-- <button @click="sendEmail()">Email</button> -->
-
     <div v-if="lesson">
       <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
-        <Card>
+        <Card data-testid="lessonDetails">
           <div class="mb-4 flex flex-row">
             <FwbHeading tag="h1" class="mb-3 !text-xl">
               {{ lesson.title }}
             </FwbHeading>
           </div>
-          <div class="flex gap-10 ">
+          <div class="flex gap-10">
             <div class="mb-3 flex gap-2">
               <CalendarIcon class="inline h-5 w-4"></CalendarIcon>
               <p>{{ lessonDate }}</p>
@@ -111,6 +109,10 @@ const [sendEmail] = useErrorMessage(async () => {
             <p v-else>No students at the moment</p>
           </div>
 
+          <FwbAlert v-if="errorMessage" data-testid="errorMessage" type="danger">
+          {{ errorMessage }}
+        </FwbAlert>
+
           <!-- prettier-ignore -->
           <div class="mt-8">
         <FwbButton
@@ -128,7 +130,7 @@ const [sendEmail] = useErrorMessage(async () => {
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'Dashboard' } as any)"
-          data-testid="updateLesson"
+          data-testid="removeFromLesson"
           size="xl"
           color="red"
           >Withdraw from lesson</FwbButton>

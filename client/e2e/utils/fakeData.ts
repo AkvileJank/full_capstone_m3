@@ -14,4 +14,6 @@ export const random = process.env.CI ? Chance(1) : Chance()
 export const fakeUser = () => ({
   email: random.email(),
   password: 'password.123',
+  firstName: random.name().split(' ')[0],
+  lastName: random.name().split(' ')[1],
 })

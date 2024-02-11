@@ -47,9 +47,23 @@ async function submitSignup() {
           v-model="userForm.password"
           :required="true"
         />
-        <FwbInput label="First name" type="text" v-model="userForm.firstName" :required="true" />
+        <FwbInput
+          label="First name"
+          id="firstName"
+          name="firstName"
+          type="text"
+          v-model="userForm.firstName"
+          :required="true"
+        />
 
-        <FwbInput label="Last name" type="text" v-model="userForm.lastName" :required="true" />
+        <FwbInput
+          label="Last name"
+          id="lastName"
+          name="lastName"
+          type="text"
+          v-model="userForm.lastName"
+          :required="true"
+        />
 
         <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
           You have successfully signed up! You can now log in.
@@ -87,7 +101,8 @@ async function submitSignup() {
 <style scoped>
 .background-container {
   background-image: url('@/assets/dots.jpg');
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 </style>

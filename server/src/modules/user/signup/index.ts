@@ -4,6 +4,7 @@ import { User } from '@server/entities'
 import config from '@server/config'
 import { userInsertSchema } from '@server/entities/user'
 import { TRPCError } from '@trpc/server'
+import signupEmail from '@server/utils/sendDetailsEmail/signupEmail'
 
 export default publicProcedure
   .input(userInsertSchema)
@@ -21,6 +22,9 @@ export default publicProcedure
           firstName,
           lastName,
         })
+
+        // send Email
+        await signupEmail({ email: user.email, firstName: user.firstName })
 
         return {
           id: user.id,

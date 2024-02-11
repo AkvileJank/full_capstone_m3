@@ -63,7 +63,8 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
 <style scoped>
 .background-container {
   background-image: url('@/assets/dots.jpg');
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 </style>

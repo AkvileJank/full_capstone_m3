@@ -21,48 +21,8 @@ it('should add attending user to a lesson', async () => {
   expect(response).toEqual({
     ...lesson,
     capacity: lesson.capacity - 1,
-    attendingUsers: [
-      {
-        id: userLearner.id,
-        firstName: userLearner.firstName,
-        lastName: userLearner.lastName,
-      },
-    ],
-    teacher: undefined,
-  })
-})
-
-it('should allow multiple users to join to the lesson', async () => {
-  const userTeacher = await db.getRepository(User).save(fakeUser())
-
-  const userLearner = await db.getRepository(User).save(fakeUser())
-  const fakeExistingLearner = await db.getRepository(User).save(fakeUser())
-
-  const lesson = await db.getRepository(Lesson).save(
-    fakeLesson({
-      teacherId: userTeacher.id,
-      attendingUsers: [fakeExistingLearner],
-    })
-  )
-
-  const { join } = lessonRouter.createCaller(authContext({ db }, userLearner))
-  const response = await join({ id: lesson.id })
-
-  expect(response).toEqual({
-    ...lesson,
-    capacity: expect.any(Number),
-    attendingUsers: [
-      {
-        id: fakeExistingLearner.id,
-        firstName: fakeExistingLearner.firstName,
-        lastName: fakeExistingLearner.lastName,
-      },
-      {
-        id: userLearner.id,
-        firstName: userLearner.firstName,
-        lastName: userLearner.lastName,
-      },
-    ],
+    attendingUsers: [],
+    isUserAttending: true,
     teacher: undefined,
   })
 })

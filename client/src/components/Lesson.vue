@@ -32,7 +32,7 @@ const dateTime = dateFormatter(props.lesson.dateTime)
       <FwbButton
       component="RouterLink"
       tag="router-link"
-      data-testid="viewProjectBugs"
+      data-testid="seeLessonDetails"
       :href="({ name: 'Lesson', params: { id: lesson.id } } as any)"
       class="pr-3"
     >
