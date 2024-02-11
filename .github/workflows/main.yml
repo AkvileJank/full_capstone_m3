@@ -53,6 +53,8 @@ jobs:
           DB_NAME: testdb
           DB_HOST: localhost
           PORT: 3000
+          EMAIL_USER: email@user.com
+          EMAIL_PASS: emailpassword
 
       - name: Build front end for E2E tests
         run: npm run build -w=client
