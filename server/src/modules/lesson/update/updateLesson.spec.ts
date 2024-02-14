@@ -27,7 +27,6 @@ it('should update existing lesson', async () => {
     ...lesson,
     ...lessonNewData,
     teacher: undefined,
-    attendingUsers: [],
   })
 })
 
@@ -45,7 +44,6 @@ it('should return lesson unchanged if only id was provided', async () => {
   expect(updatedLesson).toEqual({
     ...lesson,
     teacher: undefined,
-    attendingUsers: [],
   })
 })
 

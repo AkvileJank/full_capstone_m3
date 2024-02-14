@@ -3,6 +3,7 @@ import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { validates } from '@server/utils/validation'
 import { Not } from 'typeorm'
 import { z } from 'zod'
+import formatLessons from '../utils/formatLessons'
 
 // find lessons created by other users
 
@@ -48,5 +49,5 @@ export default authenticatedProcedure
     })
     const totalPages = Math.ceil(totalCount / pageSize)
 
-    return { lessons, totalPages }
+    return { lessons: formatLessons(lessons), totalPages }
   })

@@ -1,6 +1,6 @@
 import { User } from '@server/entities'
-import { Lesson } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
+import formatLessons from '@server/modules/lesson/utils/formatLessons'
 
 export default authenticatedProcedure.query(
   async ({ ctx: { authUser, db } }) => {
@@ -14,12 +14,3 @@ export default authenticatedProcedure.query(
     return formatLessons(user!.attendingLessons)
   }
 )
-
-function formatLessons(lessons: Lesson[]) {
-  return lessons.map((lesson) => ({
-    id: lesson.id,
-    title: lesson.title,
-    dateTime: lesson.dateTime,
-    location: lesson.location,
-  }))
-}

@@ -30,7 +30,7 @@ export default authenticatedProcedure
         .getRepository(Lesson)
         .save(lesson!)
 
-      return updatedLesson
+      return { ...updatedLesson, attendingUsers: [] }
     })
     return result
   })

@@ -1,4 +1,4 @@
-import { lessonUpdateSchema, Lesson } from '@server/entities/lesson'
+import { lessonUpdateSchema, Lesson, LessonBare } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notAllowed, notFound, missingId } from '../utils/tRPCErrors'
 
@@ -17,5 +17,6 @@ export default authenticatedProcedure
       .getRepository(Lesson)
       .findOneBy({ id: input.id })
 
-    return updatedLesson
+    const { attendingUsers, ...lessonInfo } = updatedLesson!
+    return lessonInfo
   })

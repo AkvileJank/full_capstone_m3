@@ -2,7 +2,7 @@
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
-import Lesson from '@/components/Lesson.vue'
+import LessonPreviewComp from '@/components/LessonPreview.vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
 
 const lessonsJoined = ref<LessonPreview[]>([])
@@ -22,7 +22,12 @@ onBeforeMount(async () => {
         data-testid="lessonsCreatedList"
         class="grid grid-cols-1 lg:grid-cols-2 lg:gap-6"
       >
-        <Lesson v-for="lesson in lessonsJoined" :key="lesson.id" :lesson="lesson" class="card2" />
+        <LessonPreviewComp
+          v-for="lesson in lessonsJoined"
+          :key="lesson.id"
+          :lesson="lesson"
+          class="card2"
+        />
       </div>
       <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
 
@@ -45,7 +50,6 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
-
 .btn {
   background-color: #d5573b;
 }
@@ -68,4 +72,3 @@ onBeforeMount(async () => {
   position: relative;
 }
 </style>
-

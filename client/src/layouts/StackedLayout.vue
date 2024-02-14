@@ -42,9 +42,7 @@ const navigation = computed(() =>
   </FwbNavbar>
 </div>
   <main>
-    <!-- <div class="container mx-auto px-6 py-8"> -->
     <RouterView />
-    <!-- </div> -->
   </main>
 </template>
 

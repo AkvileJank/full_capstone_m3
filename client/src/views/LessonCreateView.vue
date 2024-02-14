@@ -2,12 +2,10 @@
 import { trpc } from '@/trpc'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { FwbButton, FwbHeading, FwbInput, FwbTextarea } from 'flowbite-vue'
+import { FwbButton, FwbHeading } from 'flowbite-vue'
 import useErrorMessage from '@/composables/useErrorMessage'
 import AlertError from '@/components/AlertError.vue'
-import VueDatePicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
-import calendarFormatter from '@/utils/calendarFormatter'
+import LessonInput from '@/components/LessonInput.vue'
 
 const router = useRouter()
 
@@ -32,87 +30,7 @@ const [createLesson, errorMessage] = useErrorMessage(async () => {
     <form aria-label="Lesson" @submit.prevent="createLesson" name="Lesson">
       <div class="space-y-6">
         <FwbHeading tag="h4">Create a new lesson</FwbHeading>
-
-        <div class="mt-6">
-          <FwbInput
-            aria-label="Lesson title"
-            v-model="lessonForm.title"
-            :minlength="2"
-            label="Title"
-            placeholder="My lesson"
-            name="Title"
-          />
-        </div>
-
-        <div class="mt-6">
-          <label
-            for="number-input"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >Date and time:</label
-          >
-          <VueDatePicker
-            data-testid="datepicker"
-            v-model="lessonForm.dateTime"
-            :format="calendarFormatter"
-            placeholder="Select date and time"
-          />
-        </div>
-
-        <div class="mt-6">
-          <label
-            for="number-input"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >Duration: (min)</label
-          >
-          <input
-            data-testid="duration"
-            v-model="lessonForm.duration"
-            id="number-input"
-            type="number"
-            aria-label="Lesson duration"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div class="mt-6">
-          <FwbInput
-            name="Location"
-            aria-label="Lesson location"
-            v-model="lessonForm.location"
-            :minlength="2"
-            label="Location:"
-            placeholder="Enter location"
-          />
-        </div>
-        <div class="mt-6">
-          <label
-            for="number-input"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >Capacity:</label
-          >
-          <input
-            data-testid="capacity"
-            v-model="lessonForm.capacity"
-            id="number-input"
-            type="number"
-            aria-label="Lesson capacity"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="Enter a number"
-            required
-          />
-        </div>
-
-        <div class="mt-6">
-          <FwbTextarea
-            data-testid="description"
-            aria-label="Lesson description"
-            v-model="lessonForm.description"
-            :minlength="2"
-            label="Description"
-            placeholder="Enter description"
-          />
-        </div>
+        <LessonInput :lesson="lessonForm"></LessonInput>
       </div>
 
       <AlertError :message="errorMessage" />

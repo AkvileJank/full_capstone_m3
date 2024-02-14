@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
-import { FwbButton, FwbHeading } from 'flowbite-vue'
+import { FwbButton, FwbHeading, FwbAlert } from 'flowbite-vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
-import Lesson from '@/components/Lesson.vue'
+import LessonPreviewComp from '@/components/LessonPreview.vue'
 
 const PAGE_SIZE = 6
 
@@ -45,7 +45,7 @@ const isJoined = (lesson: LessonPreview) => {
           data-testid="lessonList"
           class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
         >
-          <Lesson
+          <LessonPreviewComp
             v-for="lesson in lessonsFound"
             :key="lesson.id"
             :lesson="lesson"

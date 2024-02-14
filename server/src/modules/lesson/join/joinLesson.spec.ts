@@ -21,7 +21,6 @@ it('should add attending user to a lesson', async () => {
   expect(response).toEqual({
     ...lesson,
     capacity: lesson.capacity - 1,
-    attendingUsers: [],
     isUserAttending: true,
     teacher: undefined,
   })

@@ -1,8 +1,8 @@
-import { Lesson,lessonSchema } from '@server/entities/lesson'
-import type { LessonBare } from '@server/entities/lesson'
+import { Lesson, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notFound } from '../utils/tRPCErrors'
 import getTeacherName from '../utils/getTeacherName'
+import { User } from '@server/entities'
 
 export default authenticatedProcedure
   .input(
@@ -11,18 +11,37 @@ export default authenticatedProcedure
     })
   )
   .query(async ({ input: { id }, ctx: { authUser, db } }) => {
-    const lesson = (await db.getRepository(Lesson).findOneBy({
+    const lesson = await db.getRepository(Lesson).findOneBy({
       id,
-    })) as LessonBare
+    })
 
     if (!lesson) notFound()
 
-    if (authUser.id !== lesson.teacherId) {
-      const teacherName = await getTeacherName(db, lesson.teacherId)
+    const { attendingUsers, ...lessonInfo } = lesson!
+
+    if (authUser.id !== lesson!.teacherId) {
+      const teacherName = await getTeacherName(db, lesson!.teacherId)
+      const isJoined = lesson?.attendingUsers.some(
+        (user) => user.id === authUser.id
+      )
+
       return {
-        ...lesson,
+        ...lessonInfo,
         teacher: teacherName,
+        isOwned: false,
+        isJoined,
       }
     }
-    return lesson
+    return {
+      ...lessonInfo,
+      attendingUsers: formatUsers(lesson!.attendingUsers),
+      isOwned: true,
+    }
   })
+
+function formatUsers(users: User[]) {
+  return users.map((user) => ({
+    firstName: user.firstName,
+    lastName: user.lastName,
+  }))
+}

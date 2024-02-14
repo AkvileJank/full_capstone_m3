@@ -19,7 +19,7 @@ const router = createRouter({
         },
         {
           path: 'lesson/create',
-          name: 'ProjectCreate',
+          name: 'LessonCreate',
           component: () => import('../views/LessonCreateView.vue'),
         },
         {

@@ -1,4 +1,4 @@
-import { Lesson, lessonSchema } from '@server/entities/lesson'
+import { Lesson, LessonBare, lessonSchema } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notAllowed, notFound } from '../utils/tRPCErrors'
 
@@ -17,6 +17,7 @@ export default authenticatedProcedure
     if (lesson!.teacherId !== authUser.id) notAllowed()
 
     const removedLesson = await db.getRepository(Lesson).remove(lesson!)
+    const { attendingUsers, ...lessonInfo } = lesson!
 
-    return removedLesson
+    return lessonInfo
   })

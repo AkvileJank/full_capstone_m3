@@ -51,10 +51,11 @@ export default authenticatedProcedure
       // send email
       await joinEmail(fullAuthUser!, { ...lesson!, teacher: teacherName })
 
+      const { attendingUsers, ...lessonInfo } = lesson!
+
       return {
-        ...(lessonWithUser as LessonBare),
-        attendingUsers: [],
-        isUserAttending,
+        ...lessonInfo,
+        isUserAttending, // for tests
       }
     })
     return result

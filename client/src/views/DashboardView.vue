@@ -2,8 +2,9 @@
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
-import Lesson from '@/components/Lesson.vue'
+import LessonPreviewComp from '@/components/LessonPreview.vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
+import DashboardPreviews from '@/components/DashboardPreviews.vue'
 
 const lessonsCreated = ref<LessonPreview[]>([])
 const lessonsJoined = ref<LessonPreview[]>([])
@@ -12,6 +13,8 @@ onBeforeMount(async () => {
   lessonsCreated.value = await trpc.user.findOwned.query()
   lessonsJoined.value = await trpc.user.findJoinedLessons.query()
 })
+
+const itemsPerScreen = 4
 </script>
 
 <template>
@@ -20,20 +23,10 @@ onBeforeMount(async () => {
     <div class="container mx-auto h-max px-6 py-8">
       <div class="DashboardView">
         <FwbHeading tag="h4" class="mb-3">You are attending these lessons:</FwbHeading>
-
-        <div
-          v-if="lessonsJoined.length"
-          data-testid="projectList"
-          class="grid grid-flow-col justify-stretch gap-x-6"
-        >
-          <Lesson
-            v-for="lesson in lessonsJoined.slice(0 - 3)"
-            :key="lesson.id"
-            :lesson="lesson"
-            class="card"
-          />
-        </div>
-        <FwbAlert v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
+        <DashboardPreviews
+          :lessons="lessonsJoined"
+          :items-per-screen="itemsPerScreen"
+        ></DashboardPreviews>
 
         <div class="flex justify-end">
           <!-- prettier-ignore -->
@@ -64,15 +57,12 @@ onBeforeMount(async () => {
       </FwbButton>
         </div>
       </div>
+
       <FwbHeading tag="h4" class="mb-3">Your created lessons:</FwbHeading>
-      <div
-        v-if="lessonsCreated.length"
-        data-testid="lessonsCreatedList"
-        class="grid grid-cols-1 lg:grid-cols-2 gap-x-6"
-      >
-        <Lesson v-for="lesson in lessonsCreated.slice(0 - 3)" :key="lesson.id" :lesson="lesson" />
-      </div>
-      <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
+      <DashboardPreviews
+        :lessons="lessonsCreated"
+        :items-per-screen="itemsPerScreen"
+      ></DashboardPreviews>
 
       <div class="flex justify-end">
         <!-- prettier-ignore -->
@@ -94,7 +84,7 @@ onBeforeMount(async () => {
         <FwbButton
         component="RouterLink"
         tag="router-link"
-        :href="({ name: 'ProjectCreate' } as any)"
+        :href="({ name: 'LessonCreate' } as any)"
         data-testid="createLesson"
         size="xl"
         class="btn"
@@ -122,5 +112,4 @@ onBeforeMount(async () => {
 .container {
   position: relative;
 }
-
 </style>

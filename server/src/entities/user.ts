@@ -66,3 +66,5 @@ export type AuthUser = Pick<User, 'id'>
 export const authUserSchema = validates<AuthUser>().with({
   id: z.number().int().positive(),
 })
+
+export type Student = Pick<UserBare, 'firstName' | 'lastName'>

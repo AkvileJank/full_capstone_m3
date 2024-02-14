@@ -7,7 +7,7 @@ import {
 } from 'typeorm'
 import { validates } from '@server/utils/validation'
 import { z } from 'zod'
-import { User } from './user'
+import { Student, User } from './user'
 
 @Entity()
 export class Lesson {
@@ -77,4 +77,5 @@ export type LessonDetails = {
   capacity: number
   description: string
   teacher: string
+  attendingUsers?: Student[]
 }

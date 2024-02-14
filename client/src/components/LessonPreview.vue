@@ -13,7 +13,7 @@ const dateTime = dateFormatter(props.lesson.dateTime)
 </script>
 
 <template>
-  <Card class="flex flex-col justify-between" data-testid="project">
+  <Card class="flex flex-col justify-between">
     <div class="mb-2 flex flex-col gap-2">
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
         {{ lesson.title }}

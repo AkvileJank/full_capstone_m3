@@ -20,7 +20,7 @@ test.describe.serial('see a lesson', () => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
-    const lessonsCreatedList = page.getByTestId('lessonsCreatedList')
+    const lessonsCreatedList = page.getByTestId('lessonList')
     await expect(lessonsCreatedList).toBeHidden()
 
     // click on a button to create a new project
@@ -37,6 +37,7 @@ test.describe.serial('see a lesson', () => {
     await form.getByTestId('description').fill(lesson.description)
 
     await form.locator('button[type="submit"]').click()
+    await page.waitForLoadState('load')
     await expect(lessonsCreatedList).toHaveCount(1)
   })
 
