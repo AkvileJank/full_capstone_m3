@@ -37,11 +37,6 @@ const router = createRouter({
           name: 'Lessons',
           component: () => import('../views/LessonsView.vue'),
         },
-        // {
-        //   path: 'lesson/:id/join',
-        //   name: 'LessonJoin',
-        //   component: () => import('../views/LessonJoinView.vue'),
-        // },
         {
           path: 'lesson/:id/join/confirmation',
           name: 'JoinConfirmation',

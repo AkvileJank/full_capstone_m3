@@ -31,16 +31,17 @@ const [removeFromLesson] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <div class="container mx-auto px-6 py-8">
-    <div v-if="lesson">
-      <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
-        <Card data-testid="lessonDetails">
-          <LessonDetails :lesson="lesson" :is-lesson-owned="lesson.isOwned"></LessonDetails>
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-screen">
+    <div class="container mx-auto px-6 py-8">
+      <div v-if="lesson">
+        <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
+          <Card data-testid="lessonDetails">
+            <LessonDetails :lesson="lesson" :is-lesson-owned="lesson.isOwned"></LessonDetails>
 
-          <AlertError :message="errorMessage" />
+            <AlertError :message="errorMessage" />
 
-          <!-- prettier-ignore -->
-          <div class="mt-8">
+            <!-- prettier-ignore -->
+            <div class="mt-8">
         <FwbButton
           v-if="lesson.isOwned"
           component="RouterLink"
@@ -72,8 +73,9 @@ const [removeFromLesson] = useErrorMessage(async () => {
           >Join lesson</FwbButton
         >
       </div>
-        </Card>
-      </Transition>
+          </Card>
+        </Transition>
+      </div>
     </div>
   </div>
 </template>

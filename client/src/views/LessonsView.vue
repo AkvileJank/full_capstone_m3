@@ -34,8 +34,7 @@ const isJoined = (lesson: LessonPreview) => {
 </script>
 
 <template>
-  <div class="cont">
-    <img class="demo-bg h-screen bg-cover" src="../assets/91002.jpg" alt="" />
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-no-repeat bg-center bg-fixed bg-cover h-screen">
     <div class="container mx-auto px-6 py-8">
       <FwbHeading tag="h4" class="mb-6">Browse all lessons:</FwbHeading>
 
@@ -68,17 +67,6 @@ const isJoined = (lesson: LessonPreview) => {
   </div>
 </template>
 <style scoped>
-.demo-bg {
-  opacity: 0.3;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-}
-
-.container {
-  position: relative;
-}
 
 .joined {
   background-color: #ace49c;

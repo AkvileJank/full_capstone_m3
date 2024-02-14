@@ -1,8 +1,8 @@
 import { Lesson, lessonSchema } from '@server/entities/lesson'
+import { User } from '@server/entities'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notFound } from '../utils/tRPCErrors'
 import getTeacherName from '../utils/getTeacherName'
-import { User } from '@server/entities'
 
 export default authenticatedProcedure
   .input(

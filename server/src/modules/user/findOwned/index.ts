@@ -1,6 +1,5 @@
 import { Lesson } from '@server/entities/lesson'
 import type { LessonPreview } from '@server/entities/lesson'
-
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 
 // find lessons created by user (where user is the teacher)

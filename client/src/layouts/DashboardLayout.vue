@@ -6,7 +6,12 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const links = [{ label: 'Dashboard', name: 'Dashboard' }]
+const links = [
+  { label: 'Dashboard', name: 'Dashboard' },
+  { label: 'Browse lessons', name: 'Lessons' },
+  { label: 'My teaching', name: 'CreatedLessons' },
+  { label: 'My learning', name: 'JoinedLessons' },
+]
 
 function logoutUser() {
   logout()

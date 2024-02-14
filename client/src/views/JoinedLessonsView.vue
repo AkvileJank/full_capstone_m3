@@ -13,8 +13,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="cont">
-    <img class="demo-bg" src="../assets/91002.jpg" alt="" />
+  <div class="h-screen bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
     <div class="container mx-auto px-6 py-8 lg:h-screen">
       <FwbHeading tag="h4" class="mb-3">Your joined lessons:</FwbHeading>
       <div
@@ -22,27 +21,21 @@ onBeforeMount(async () => {
         data-testid="lessonsCreatedList"
         class="grid grid-cols-1 lg:grid-cols-2 lg:gap-6"
       >
-        <LessonPreviewComp
-          v-for="lesson in lessonsJoined"
-          :key="lesson.id"
-          :lesson="lesson"
-          class="card2"
-        />
+        <LessonPreviewComp v-for="lesson in lessonsJoined" :key="lesson.id" :lesson="lesson" />
       </div>
-      <FwbAlert v-else data-testid="projectListEmpty">No lessons yet!</FwbAlert>
+      <FwbAlert v-else>No lessons yet!</FwbAlert>
 
       <div class="mb-8 mt-4 flex justify-center">
         <!-- prettier-ignore -->
         <FwbButton
         component="RouterLink"
         tag="router-link"
-        :href="({ name: 'ProjectCreate' } as any)"
-        data-testid="createProject"
+        :href="({ name: 'Lessons' } as any)"
+        data-testid="findLessons"
         size="xl"
-        color="green"
-        class="btn"
+       class="btn"
       >
-        Create a new lesson
+        Find a lesson to join
       </FwbButton>
       </div>
     </div>
@@ -52,23 +45,5 @@ onBeforeMount(async () => {
 <style scoped>
 .btn {
   background-color: #d5573b;
-}
-
-.demo-wrap {
-  overflow: hidden;
-  position: relative;
-}
-
-.demo-bg {
-  opacity: 0.3;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: auto;
-}
-
-.container {
-  position: relative;
 }
 </style>

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
-import { FwbAlert, FwbButton, FwbHeading } from 'flowbite-vue'
-import LessonPreviewComp from '@/components/LessonPreview.vue'
+import { FwbButton, FwbHeading } from 'flowbite-vue'
 import type { LessonPreview } from '@mono/server/src/shared/entities'
 import DashboardPreviews from '@/components/DashboardPreviews.vue'
 
@@ -14,12 +13,11 @@ onBeforeMount(async () => {
   lessonsJoined.value = await trpc.user.findJoinedLessons.query()
 })
 
-const itemsPerScreen = 4
+const itemsPerScreen = 3
 </script>
 
 <template>
-  <div class="cont">
-    <img class="demo-bg h-screen" src="../assets/91002.jpg" alt="" />
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-screen">
     <div class="container mx-auto h-max px-6 py-8">
       <div class="DashboardView">
         <FwbHeading tag="h4" class="mb-3">You are attending these lessons:</FwbHeading>
@@ -31,7 +29,7 @@ const itemsPerScreen = 4
         <div class="flex justify-end">
           <!-- prettier-ignore -->
           <FwbButton
-          v-show="lessonsJoined.length > 4"
+          v-show="lessonsJoined.length > itemsPerScreen"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'JoinedLessons' } as any)"
@@ -67,11 +65,10 @@ const itemsPerScreen = 4
       <div class="flex justify-end">
         <!-- prettier-ignore -->
         <FwbButton
-        v-show="lessonsCreated.length > 4"
+        v-show="lessonsCreated.length > itemsPerScreen"
           component="RouterLink"
           tag="router-link"
           :href="({ name: 'CreatedLessons' } as any)"
-          data-testid="createProject"
           size="xl"
           color="dark"
         >
@@ -99,17 +96,5 @@ const itemsPerScreen = 4
 <style scoped>
 .btn {
   background-color: #d5573b;
-}
-
-.demo-bg {
-  opacity: 0.3;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-}
-
-.container {
-  position: relative;
 }
 </style>

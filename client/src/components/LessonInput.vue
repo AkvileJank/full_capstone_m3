@@ -1,12 +1,15 @@
 <script lang="ts" setup>
+import {ref} from 'vue'
 import calendarFormatter from '@/utils/calendarFormatter'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { FwbInput, FwbTextarea } from 'flowbite-vue'
 
-defineProps<{
+const props = defineProps<{
   lesson: any
 }>()
+
+const lessonInput = ref(props.lesson)
 </script>
 
 <template>
@@ -14,7 +17,7 @@ defineProps<{
     <FwbInput
       name="title"
       aria-label="Lesson title"
-      v-model="lesson.title"
+      v-model="lessonInput.title"
       :minlength="2"
       label="Title:"
     ></FwbInput>
@@ -26,7 +29,7 @@ defineProps<{
     >Date and time:</label
   >
   <div class="mb-3">
-    <VueDatePicker v-model="lesson.dateTime" :format="calendarFormatter" data-testid="datepicker" />
+    <VueDatePicker v-model="lessonInput.dateTime" :format="calendarFormatter" data-testid="datepicker" />
   </div>
 
   <div class="mb-3">
@@ -35,7 +38,7 @@ defineProps<{
     >
     <input
       data-testid="duration"
-      v-model="lesson.duration"
+      v-model="lessonInput.duration"
       type="number"
       id="number-input"
       aria-label="Lesson duration"
@@ -47,7 +50,7 @@ defineProps<{
   <div class="mb-3">
     <FwbInput
       aria-label="Lesson location"
-      v-model="lesson.location"
+      v-model="lessonInput.location"
       :minlength="2"
       label="Location:"
     ></FwbInput>
@@ -59,7 +62,7 @@ defineProps<{
     >
     <input
       data-testid="capacity"
-      v-model="lesson.capacity"
+      v-model="lessonInput.capacity"
       type="number"
       id="number-input"
       aria-label="Lesson capacity"
@@ -72,7 +75,7 @@ defineProps<{
     <FwbTextarea
       data-testid="description"
       aria-label="Lesson description"
-      v-model="lesson.description"
+      v-model="lessonInput.description"
       :minlength="2"
       label="Description:"
     ></FwbTextarea>

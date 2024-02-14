@@ -7,7 +7,8 @@ import {
 } from 'typeorm'
 import { validates } from '@server/utils/validation'
 import { z } from 'zod'
-import { Student, User } from './user'
+import { User } from './user'
+import type { Student } from './user'
 
 @Entity()
 export class Lesson {

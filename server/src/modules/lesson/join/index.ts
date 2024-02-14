@@ -1,5 +1,4 @@
 import { lessonSchema } from '@server/entities/lesson'
-import type { LessonBare } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { Lesson } from '@server/entities'
 import { User } from '@server/entities/user'

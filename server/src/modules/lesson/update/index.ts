@@ -1,4 +1,4 @@
-import { lessonUpdateSchema, Lesson, LessonBare } from '@server/entities/lesson'
+import { lessonUpdateSchema, Lesson } from '@server/entities/lesson'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { notAllowed, notFound, missingId } from '../utils/tRPCErrors'
 
