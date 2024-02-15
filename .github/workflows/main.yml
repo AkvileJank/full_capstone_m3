@@ -167,6 +167,7 @@ jobs:
               },
               "environment": {
                 "NODE_ENV": "production",
+                "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
                 "DB_SSL": "true",
                 "DB_SYNC": "true",
                 "DB_HOST": "${{ secrets.PROD_DB_HOST }}",
@@ -174,8 +175,7 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "EMAIL_USER": "${{ secrets.EMAIL_USER }}",
-                "EMAIL_PASS": "${{ secrets.EMAIL_PASS }}",
-                "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}"
+                "EMAIL_PASS": "${{ secrets.EMAIL_PASS }}"
               }
             }
           }' > containers.json
