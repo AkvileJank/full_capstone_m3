@@ -33,7 +33,7 @@ async function submitSignup() {
 </script>
 
 <template>
-  <div class="h-full bg-[url('../assets/dots.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+  <div class="h-screen bg-[url('../assets/dots.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
     <PageForm heading="Sign up for an account" formLabel="Signup" @submit="submitSignup">
       <template #default>
         <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />

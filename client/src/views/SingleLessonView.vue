@@ -31,7 +31,7 @@ const [removeFromLesson] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-full">
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-screen">
     <div class="container mx-auto px-6 py-8">
       <div v-if="lesson">
         <Transition enter-from-class="opacity-0" enter-active-class="transition duration-500">
