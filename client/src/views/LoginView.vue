@@ -21,7 +21,7 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
 </script>
 
 <template>
-  <div class="background-container h-screen">
+<div class="h-full bg-[url('../assets/dots.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
     <PageForm heading="Log in to your account" formLabel="Login" @submit="submitLogin">
       <template #default>
         <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
@@ -60,11 +60,3 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
   </div>
 </template>
 
-<style scoped>
-.background-container {
-  background-image: url('@/assets/dots.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-</style>

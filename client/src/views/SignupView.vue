@@ -33,7 +33,7 @@ async function submitSignup() {
 </script>
 
 <template>
-  <div class="background-container h-screen">
+  <div class="h-full bg-[url('../assets/dots.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
     <PageForm heading="Sign up for an account" formLabel="Signup" @submit="submitSignup">
       <template #default>
         <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
@@ -97,12 +97,3 @@ async function submitSignup() {
     </PageForm>
   </div>
 </template>
-
-<style scoped>
-.background-container {
-  background-image: url('@/assets/dots.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-</style>

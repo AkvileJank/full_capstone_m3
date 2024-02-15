@@ -13,8 +13,8 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="h-screen bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
-    <div class="container mx-auto px-6 py-8 lg:h-screen">
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-full">
+    <div class="container mx-auto px-6 py-8">
       <FwbHeading tag="h4" class="mb-3">Your joined lessons:</FwbHeading>
       <div
         v-if="lessonsJoined.length"

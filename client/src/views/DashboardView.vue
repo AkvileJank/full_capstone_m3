@@ -17,7 +17,7 @@ const itemsPerScreen = 3
 </script>
 
 <template>
-  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-screen">
+  <div class="bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat h-full">
     <div class="container mx-auto h-max px-6 py-8">
       <div class="DashboardView">
         <FwbHeading tag="h4" class="mb-3">You are attending these lessons:</FwbHeading>

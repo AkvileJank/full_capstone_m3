@@ -14,7 +14,7 @@ onBeforeMount(async () => {
 
 <template>
   <div class="h-screen bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
-    <div class="container mx-auto px-6 py-8 lg:h-screen">
+    <div class="container mx-auto px-6 py-8 lg:h-full">
       <FwbHeading tag="h4" class="mb-3">Your created lessons:</FwbHeading>
       <div
         v-if="lessonsCreated.length"
