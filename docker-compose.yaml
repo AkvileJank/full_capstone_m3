@@ -5,9 +5,9 @@ services:
   postgres:
     image: postgres:16.1-alpine
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER:
       POSTGRES_PASSWORD:
-      POSTGRES_DB: capstone
+      POSTGRES_DB:
     ports:
       - "5432"
     volumes:
@@ -21,12 +21,12 @@ services:
     env_file:
       - ./server/.env
     environment:
-      DB_HOST: localhost
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-      EMAIL_USER: ${EMAIL_USER}
-      EMAIL_PASS: ${EMAIL_PASS}
+      DB_HOST: postgres
+      DB_USER: # same as in postgres variables
+      DB_PASSWORD: # same as in postgres variables
+      DB_NAME: # same as in postgres variables
+      EMAIL_USER: # can be any string in email format
+      EMAIL_PASS:
       PORT: 3000
     ports:
       - "3000"
