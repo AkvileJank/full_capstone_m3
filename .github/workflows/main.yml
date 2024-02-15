@@ -174,7 +174,7 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "EMAIL_USER": "${{ secrets.EMAIL_USER }}",
-                "EMAIL_PASS": "${{ secrets.EMAIL_PASS }}",
+                "EMAIL_PASS": "${{ secrets.EMAIL_PASS }}"
               }
             }
           }' > containers.json
