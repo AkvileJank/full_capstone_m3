@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import calendarFormatter from '@/utils/calendarFormatter'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -22,14 +22,19 @@ const lessonInput = ref(props.lesson)
       label="Title:"
     ></FwbInput>
   </div>
-  <label
-    for="datepicker"
-    class="mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    aria-label="Lesson date and time"
-    >Date and time:</label
-  >
+
   <div class="mb-3">
-    <VueDatePicker v-model="lessonInput.dateTime" :format="calendarFormatter" data-testid="datepicker" />
+    <label
+      for="datepicker"
+      class="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      aria-label="Lesson date and time"
+      >Date and time:</label
+    >
+    <VueDatePicker
+      v-model="lessonInput.dateTime"
+      :format="calendarFormatter"
+      data-testid="datepicker"
+    />
   </div>
 
   <div class="mb-3">
@@ -78,6 +83,7 @@ const lessonInput = ref(props.lesson)
       v-model="lessonInput.description"
       :minlength="2"
       label="Description:"
+      placeholder="Enter a description for lesson..."
     ></FwbTextarea>
   </div>
 </template>

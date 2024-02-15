@@ -51,7 +51,7 @@ const isJoined = (lesson: LessonPreview) => {
             :class="{ joined: isJoined(lesson) }"
           />
         </div>
-        <FwbAlert v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
+        <FwbAlert class="mb-3" v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
       </div>
 
       <div class="flex justify-center gap-6">

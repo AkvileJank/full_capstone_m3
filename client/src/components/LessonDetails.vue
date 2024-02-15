@@ -19,7 +19,7 @@ const dateFormatted = dateFormatter(props.lesson.dateTime)
       {{ lesson.title }}
     </FwbHeading>
   </div>
-  <div class="flex gap-10">
+  <div class="flex gap-5 lg:gap-10">
     <div class="mb-3 flex gap-2">
       <CalendarIcon class="inline h-5 w-4"></CalendarIcon>
       <p>{{ dateFormatted.date }}</p>
@@ -31,8 +31,8 @@ const dateFormatted = dateFormatter(props.lesson.dateTime)
     </div>
 
     <div class="mb-3 flex gap-2">
-      <h3 class="inline font-bold">Duration:</h3>
-      <p>{{ `${lesson.duration} min` }}</p>
+      <h3 class="inline grow font-bold">Duration:</h3>
+      <p class="grow">{{ `${lesson.duration} min` }}</p>
     </div>
   </div>
 
