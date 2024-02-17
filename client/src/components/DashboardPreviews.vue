@@ -13,7 +13,7 @@ defineProps<{
   <div
     v-if="lessons.length"
     data-testid="lessonList"
-    class="flex flex-col justify-stretch gap-x-6 lg:grid lg:grid-flow-col"
+    class="flex flex-col justify-stretch gap-x-6 lg:grid lg:grid-cols-3"
   >
     <LessonPreviewComp
       v-for="lesson in lessons.slice(0 - itemsPerScreen)"

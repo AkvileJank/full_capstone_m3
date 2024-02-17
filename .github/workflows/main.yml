@@ -71,18 +71,18 @@ jobs:
           retry-delay: 5s
           url: http://localhost:3000/api/health
 
-      # - name: Test client E2E
-      #   run: npm run test:e2e -w=client
-      #   env:
-      #     VITE_API_ORIGIN: http://localhost:3000
-      #     VITE_API_PATH: /api/v1/trpc
+      - name: Test client E2E
+        run: npm run test:e2e -w=client
+        env:
+          VITE_API_ORIGIN: http://localhost:3000
+          VITE_API_PATH: /api/v1/trpc
 
-      # - uses: actions/upload-artifact@v3
-      #   if: always()
-      #   with:
-      #     name: playwright-report
-      #     path: client/playwright-report/
-      #     retention-days: 7
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: client/playwright-report/
+          retention-days: 7
 
   build-deploy:
     needs: test

@@ -24,7 +24,7 @@ export default publicProcedure
         })
 
         // send Email
-        await signupEmail({ email: user.email, firstName: user.firstName })
+        if (config.env !== 'test') await signupEmail({ email: user.email, firstName: user.firstName })
 
         return {
           id: user.id,

@@ -11,6 +11,7 @@ import {
 } from '../utils/tRPCErrors'
 import joinEmail from '../../../utils/sendDetailsEmail/joinEmail'
 import getTeacherName from '../utils/getTeacherName'
+import config from '@server/config'
 
 export default authenticatedProcedure
   .input(lessonSchema.pick({ id: true }))
@@ -48,7 +49,9 @@ export default authenticatedProcedure
       const teacherName = await getTeacherName(db, lesson!.teacherId)
 
       // send email
-      await joinEmail(fullAuthUser!, { ...lesson!, teacher: teacherName })
+
+      if (config.env !== 'test')
+        await joinEmail(fullAuthUser!, { ...lesson!, teacher: teacherName })
 
       const { attendingUsers, ...lessonInfo } = lesson!
 
