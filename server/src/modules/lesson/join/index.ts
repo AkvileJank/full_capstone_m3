@@ -3,6 +3,7 @@ import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { Lesson } from '@server/entities'
 import { User } from '@server/entities/user'
 import type { AuthUser } from '@server/entities/user'
+import config from '@server/config'
 import {
   notFound,
   lessonFull,
@@ -11,7 +12,6 @@ import {
 } from '../utils/tRPCErrors'
 import joinEmail from '../../../utils/sendDetailsEmail/joinEmail'
 import getTeacherName from '../utils/getTeacherName'
-import config from '@server/config'
 
 export default authenticatedProcedure
   .input(lessonSchema.pick({ id: true }))
