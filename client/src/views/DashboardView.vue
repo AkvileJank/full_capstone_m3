@@ -24,6 +24,7 @@ const itemsPerScreen = 3
         <DashboardPreviews
           :lessons="lessonsJoined"
           :items-per-screen="itemsPerScreen"
+          data-testid="lessonsJoined"
         ></DashboardPreviews>
 
         <div class="flex justify-end">
@@ -60,6 +61,7 @@ const itemsPerScreen = 3
       <DashboardPreviews
         :lessons="lessonsCreated"
         :items-per-screen="itemsPerScreen"
+        data-testid="lessonsCreated"
       ></DashboardPreviews>
 
       <div class="flex justify-end">

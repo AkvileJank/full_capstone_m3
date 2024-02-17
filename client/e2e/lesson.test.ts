@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { loginNewUser} from './utils/api'
+import { loginNewUser } from './utils/api'
 import { random, fakeUser } from './utils/fakeData'
 
 const fakeLesson = () => ({
@@ -20,8 +20,8 @@ test.describe.serial('see a lesson', () => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
-    const lessonsCreatedList = page.getByTestId('lessonList')
-    await expect(lessonsCreatedList).toHaveCount(0)
+    const lessonsCreatedList = page.getByTestId('lessonsCreated')
+    const lessonCount = await lessonsCreatedList.count()
 
     // click on a button to create a new project
     await page.getByTestId('createLesson').click()
@@ -37,8 +37,8 @@ test.describe.serial('see a lesson', () => {
     await form.getByTestId('description').fill(lesson.description)
 
     await form.locator('button[type="submit"]').click()
-    await page.waitForLoadState('load')
-    await expect(lessonsCreatedList).toHaveCount(1)
+    // await page.waitForLoadState('load')
+    await expect(lessonsCreatedList).toHaveCount(lessonCount + 1)
   })
 
   test('can see lesson details', async ({ page }) => {
@@ -63,7 +63,7 @@ test.describe.serial('see a lesson', () => {
     await page.goto('/dashboard')
     await page.getByTestId('findLessons').click()
 
-    await page.waitForLoadState('load')
+    // await page.waitForLoadState('load')
     // const lessonsListCount = await page.getByTestId('lessonList').count()
     const message = page.getByTestId('lessonListEmpty')
     await expect(message).toBeHidden()
@@ -97,6 +97,10 @@ test.describe.serial('see a lesson', () => {
   test('can remove lesson', async ({ page }) => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
+
+    const lessonsCreatedList = page.getByTestId('lessonList')
+    const lessonCount = await lessonsCreatedList.count()
+
     await page.getByTestId('seeLessonDetails').click()
 
     await page.waitForLoadState('load')
@@ -105,13 +109,12 @@ test.describe.serial('see a lesson', () => {
 
     await page.getByTestId('deleteLesson').click()
 
-    await page.waitForLoadState('load')
+    // await page.waitForLoadState('load')
 
     await page.getByTestId('remove').click()
     await page.goto('/dashboard')
-    await page.waitForLoadState('load')
+    // await page.waitForLoadState('load')
 
-    const lessonsCreatedList = page.getByTestId('lessonsCreatedList')
-    await expect(lessonsCreatedList).toHaveCount(0)
+    await expect(lessonsCreatedList).toBeHidden()
   })
 })
