@@ -21,7 +21,7 @@ test.describe.serial('see a lesson', () => {
     await page.goto('/dashboard')
 
     const lessonsCreatedList = page.getByTestId('lessonList')
-    await expect(lessonsCreatedList).toBeHidden()
+    await expect(lessonsCreatedList).toHaveCount(0)
 
     // click on a button to create a new project
     await page.getByTestId('createLesson').click()
