@@ -20,8 +20,8 @@ test.describe.serial('see a lesson', () => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
-    const lessonsCreatedList = page.getByTestId('lessonsCreated')
-    const lessonCount = await lessonsCreatedList.count()
+    const lessonsCreatedList = page.getByTestId('lessonList')
+   expect(lessonsCreatedList).toBeHidden()
 
     // click on a button to create a new project
     await page.getByTestId('createLesson').click()
@@ -38,7 +38,8 @@ test.describe.serial('see a lesson', () => {
 
     await form.locator('button[type="submit"]').click()
     // await page.waitForLoadState('load')
-    await expect(lessonsCreatedList).toHaveCount(lessonCount + 1)
+    await page.goto('/dashboard')
+    await expect(page.getByTestId('preview')).toContainText(lesson.title)
   })
 
   test('can see lesson details', async ({ page }) => {

@@ -20,6 +20,7 @@ defineProps<{
       :key="lesson.id"
       :lesson="lesson"
       class="card"
+      data-testid="preview"
     />
   </div>
   <FwbAlert v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
