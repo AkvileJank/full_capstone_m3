@@ -48,7 +48,5 @@ function getErrorMessage(error: unknown) {
     return error.message
   }
 
-  // error starts with 'Validation error:
-
   return error.data.message || error.message
 }
