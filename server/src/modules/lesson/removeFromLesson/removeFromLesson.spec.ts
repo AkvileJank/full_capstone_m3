@@ -3,6 +3,7 @@ import { createTestDatabase } from '@tests/utils/database'
 import { User, Lesson } from '@server/entities'
 import { authContext } from '@tests/utils/context'
 import lessonsRouter from '..'
+import userRouter from '../../user'
 
 const db = await createTestDatabase()
 
@@ -21,6 +22,14 @@ it('should remove user from joined lesson', async () => {
     authContext({ db }, userLearner)
   )
 
-  const result = await removeFromLesson({ id: lesson.id })
-  expect(result.attendingUsers).not.toContain(userLearner)
+  const lessonRemoval = await removeFromLesson({ id: lesson.id })
+
+  // to get lessons that are joined by the user - should not contain lesson that user was removed from
+  const { findJoinedLessons } = userRouter.createCaller(
+    authContext({ db }, userLearner)
+  )
+
+  const result = await findJoinedLessons()
+
+  expect(result).not.toContain(lessonRemoval)
 })

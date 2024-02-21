@@ -12,17 +12,17 @@ const fakeLesson = () => ({
 })
 
 test.describe.serial('see a lesson', () => {
-  const lesson = fakeLesson()
   const user = fakeUser()
+  const lesson = fakeLesson()
 
-  // user can create a lesson
   test('user can create a lesson', async ({ page }) => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
-    const lessonsCreatedList = page.getByTestId('lessonList')
-   expect(lessonsCreatedList).toBeHidden()
+    const lessonsCreatedList = page.getByTestId('lessonsCreated').getByTestId('lessonList')
+    expect(lessonsCreatedList).toBeHidden()
 
+    // const lessonPreviews = page.getByTestId('lessonsCreated').getByTestId('preview')
     // click on a button to create a new project
     await page.getByTestId('createLesson').click()
 
@@ -39,7 +39,7 @@ test.describe.serial('see a lesson', () => {
     await form.locator('button[type="submit"]').click()
     // await page.waitForLoadState('load')
     await page.goto('/dashboard')
-    await expect(page.getByTestId('preview')).toContainText(lesson.title)
+    await expect(page.getByTestId('title')).toContainText(lesson.title)
   })
 
   test('can see lesson details', async ({ page }) => {
@@ -100,8 +100,6 @@ test.describe.serial('see a lesson', () => {
     await page.goto('/dashboard')
 
     const lessonsCreatedList = page.getByTestId('lessonList')
-    const lessonCount = await lessonsCreatedList.count()
-
     await page.getByTestId('seeLessonDetails').click()
 
     await page.waitForLoadState('load')

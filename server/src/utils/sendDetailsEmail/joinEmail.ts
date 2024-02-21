@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer'
 import config from '@server/config'
 import { User } from '@server/entities'
 import type { LessonDetails } from '@server/entities/lesson'
+import logger from '@server/logger'
 import { joinEmail } from './texts'
 
 export default async (
@@ -25,10 +26,11 @@ export default async (
   }
 
   if (config.env !== 'test') {
-    await transporter.sendMail(mailOptions)
-  }
-
-  return {
-    message: 'Email was sent successfully!',
+    try {
+      await transporter.sendMail(mailOptions)
+      logger.info(`Join confirmation email sent to user ${student.email}`)
+    } catch (e) {
+      logger.error(e)
+    }
   }
 }

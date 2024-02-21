@@ -29,8 +29,8 @@ export default authenticatedProcedure
       const updatedLesson = await transactionalEntityManager
         .getRepository(Lesson)
         .save(lesson!)
-
-      return { ...updatedLesson, attendingUsers: [] }
+      const { attendingUsers, ...lessonInfo } = updatedLesson
+      return { ...lessonInfo }
     })
     return result
   })

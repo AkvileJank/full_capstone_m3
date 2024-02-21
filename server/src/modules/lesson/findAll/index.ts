@@ -21,7 +21,6 @@ export default authenticatedProcedure
   .input(inputPaginationSchema)
   .query(async ({ input: { page, pageSize }, ctx: { authUser, db } }) => {
     const skip = (page - 1) * pageSize
-
     const lessons = await db.getRepository(Lesson).find({
       where: {
         teacherId: Not(authUser.id),

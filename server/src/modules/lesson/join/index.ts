@@ -45,11 +45,9 @@ export default authenticatedProcedure
         .save({ ...lesson!, attendingUsers: attendees })
 
       const isUserAttending = checkAttending(lessonWithUser, authUser.id)
-
       const teacherName = await getTeacherName(db, lesson!.teacherId)
 
       // send email
-
       if (config.env !== 'test')
         await joinEmail(fullAuthUser!, { ...lesson!, teacher: teacherName })
 

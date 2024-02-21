@@ -3,8 +3,8 @@ import { signup } from '@/stores/user'
 import { ref } from 'vue'
 import PageForm from '@/components/PageForm.vue'
 import { FwbAlert, FwbButton, FwbInput } from 'flowbite-vue'
-import { DEFAULT_SERVER_ERROR } from '@/consts'
 import AlertError from '@/components/AlertError.vue'
+import useErrorMessage from '@/composables/useErrorMessage'
 
 const userForm = ref({
   email: '',
@@ -15,21 +15,10 @@ const userForm = ref({
 
 const hasSucceeded = ref(false)
 
-const errorMessage = ref('')
-async function submitSignup() {
-  try {
-    await signup(userForm.value)
-
-    // clear error
-    errorMessage.value = ''
-
-    // display success message
-    hasSucceeded.value = true
-  } catch (error) {
-    // set error, which will be automatically displayed
-    errorMessage.value = error instanceof Error ? error.message : DEFAULT_SERVER_ERROR
-  }
-}
+const [submitSignup, errorMessage] = useErrorMessage(async () => {
+  await signup(userForm.value)
+  hasSucceeded.value = true
+})
 </script>
 
 <template>
