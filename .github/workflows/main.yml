@@ -5,6 +5,7 @@ on: push
 env:
   EMAIL_USER: ${{secrets.EMAIL_USER}}
   EMAIL_PASS: ${{secrets.EMAIL_PASS}}
+  NODE_ENV: test
 
 jobs:
   test:
@@ -74,7 +75,6 @@ jobs:
       - name: Test client E2E
         run: npm run test:e2e -w=client
         env:
-          NODE_ENV: test
           VITE_API_ORIGIN: http://localhost:3000
           VITE_API_PATH: /api/v1/trpc
 
