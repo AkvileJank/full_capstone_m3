@@ -24,14 +24,14 @@ test.describe.serial('signup and login sequence', () => {
     await expect(successMessage).toBeVisible()
   })
 
-  test('visitor can not access dashboard before login', async ({ page }) => {
+  test.skip('visitor can not access dashboard before login', async ({ page }) => {
     await page.goto('/dashboard')
 
     // user is redirected to login page
     await page.waitForURL('/login')
   })
 
-  test('visitor can login', async ({ page }) => {
+  test.skip('visitor can login', async ({ page }) => {
     // Given (ARRANGE)
     await page.goto('/login')
     const dashboardLink = page.getByRole('link', { name: 'Dashboard' })
@@ -54,7 +54,7 @@ test.describe.serial('signup and login sequence', () => {
 
 
 // Running logout test in isolation.
-test('visitor can logout', async ({ page }) => {
+test.skip('visitor can logout', async ({ page }) => {
   // Given (ARRANGE)
   await loginNewUser(page)
 

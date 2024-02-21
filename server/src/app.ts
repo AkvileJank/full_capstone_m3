@@ -8,6 +8,9 @@ import { renderTrpcPanel } from 'trpc-panel'
 import type { Database } from './database'
 import { appRouter } from './modules'
 import type { Context } from './trpc'
+import logger from './logger'
+import { TRPCError } from '@trpc/server'
+import { ZodError } from 'zod'
 
 export default function createApp(db: Database) {
   const app = express()
@@ -30,6 +33,15 @@ export default function createApp(db: Database) {
       }),
 
       router: appRouter,
+      // onError: (options) => {
+      //   const { error } = options
+      //   logger.error(error)
+      //   if (!(error instanceof TRPCError) && !(error instanceof ZodError))
+      //     throw new TRPCError({
+      //       code: 'INTERNAL_SERVER_ERROR',
+      //       message: 'Something went wrong',
+      //     })
+      // },
     })
   )
 
