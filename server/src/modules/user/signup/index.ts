@@ -4,7 +4,7 @@ import { User } from '@server/entities'
 import config from '@server/config'
 import { userInsertSchema } from '@server/entities/user'
 import { TRPCError } from '@trpc/server'
-import signupEmail from '@server/utils/sendDetailsEmail/signupEmail'
+// import signupEmail from '@server/utils/sendDetailsEmail/signupEmail'
 import logger from '@server/logger'
 
 export default publicProcedure
