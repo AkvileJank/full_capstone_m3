@@ -27,8 +27,8 @@ export default publicProcedure
           `User with id: ${user.id} and email: ${user.email} was created`
         )
         // send Email
-        if (config.env !== 'test')
-          await signupEmail({ email: user.email, firstName: user.firstName })
+        // if (config.env !== 'test')
+        //   await signupEmail({ email: user.email, firstName: user.firstName })
 
         return {
           id: user.id,
