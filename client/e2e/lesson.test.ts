@@ -22,7 +22,6 @@ test.describe.serial('see a lesson', () => {
     const lessonsCreatedList = page.getByTestId('lessonsCreated').getByTestId('lessonList')
     expect(lessonsCreatedList).toBeHidden()
 
-    // const lessonPreviews = page.getByTestId('lessonsCreated').getByTestId('preview')
     // click on a button to create a new project
     await page.getByTestId('createLesson').click()
 

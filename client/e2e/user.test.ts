@@ -5,7 +5,7 @@ import { fakeUser } from 'utils/fakeData'
 const { email, password, firstName, lastName } = fakeUser()
 
 test.describe.serial('signup and login sequence', () => {
-  //4
+
   test('visitor can signup', async ({ page }) => {
     // Given (ARRANGE)
     await page.goto('/signup')
@@ -23,14 +23,14 @@ test.describe.serial('signup and login sequence', () => {
     // Then (ASSERT)
     await expect(successMessage).toBeVisible()
   })
-//5
+
   test('visitor can not access dashboard before login', async ({ page }) => {
     await page.goto('/dashboard')
 
     // user is redirected to login page
     await page.waitForURL('/login')
   })
-//6
+
   test('visitor can login', async ({ page }) => {
     // Given (ARRANGE)
     await page.goto('/login')
@@ -52,7 +52,7 @@ test.describe.serial('signup and login sequence', () => {
   })
 
 
-//7
+
 // Running logout test in isolation.
 test('visitor can logout', async ({ page }) => {
   // Given (ARRANGE)

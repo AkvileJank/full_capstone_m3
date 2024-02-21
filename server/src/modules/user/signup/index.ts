@@ -4,7 +4,7 @@ import { User } from '@server/entities'
 import config from '@server/config'
 import { userInsertSchema } from '@server/entities/user'
 import { TRPCError } from '@trpc/server'
-// import signupEmail from '@server/utils/sendDetailsEmail/signupEmail'
+import signupEmail from '@server/utils/sendDetailsEmail/signupEmail'
 import logger from '@server/logger'
 
 export default publicProcedure
@@ -27,8 +27,8 @@ export default publicProcedure
           `User with id: ${user.id} and email: ${user.email} was created`
         )
         // send Email
-        // if (config.env !== 'test')
-        //   await signupEmail({ email: user.email, firstName: user.firstName })
+        if (config.env !== 'test')
+          await signupEmail({ email: user.email, firstName: user.firstName })
 
         return {
           id: user.id,
