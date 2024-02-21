@@ -5,7 +5,6 @@ on: push
 env:
   EMAIL_USER: ${{secrets.EMAIL_USER}}
   EMAIL_PASS: ${{secrets.EMAIL_PASS}}
-  NODE_ENV: test
 
 jobs:
   test:
