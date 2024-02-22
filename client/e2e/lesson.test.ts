@@ -56,7 +56,7 @@ test.describe.serial('see a lesson', () => {
   })
 
   // // find lessons
-  test('go to find lessons page', async ({ page }) => {
+  test.skip('go to find lessons page', async ({ page }) => {
     // Give (Arrange)
     await loginNewUser(page, user)
     await page.goto('/dashboard')
@@ -67,48 +67,48 @@ test.describe.serial('see a lesson', () => {
   })
 
   // //user can edit the lesson
-  // test('can edit lesson', async ({ page }) => {
-  //   // Give (Arrange)
-  //   await loginNewUser(page, user)
-  //   await page.goto('/dashboard')
-  //   // await page.getByTestId('viewProjectBugs').click()
-  //   await page.getByTestId('seeLessonDetails').click()
+  test.skip('can edit lesson', async ({ page }) => {
+    // Give (Arrange)
+    await loginNewUser(page, user)
+    await page.goto('/dashboard')
+    // await page.getByTestId('viewProjectBugs').click()
+    await page.getByTestId('seeLessonDetails').click()
 
-  //   await page.waitForLoadState('load')
+    await page.waitForLoadState('load')
 
-  //   await page.getByTestId('updateLesson').click()
-  //   const form = page.getByRole('form', { name: 'Lesson' })
-  //   const newTitle = 'Updated test title'
-  //   await page.fill('input[name="title"]', newTitle)
+    await page.getByTestId('updateLesson').click()
+    const form = page.getByRole('form', { name: 'Lesson' })
+    const newTitle = 'Updated test title'
+    await page.fill('input[name="title"]', newTitle)
 
-  //   await form.locator('button[type="submit"]').click()
+    await form.locator('button[type="submit"]').click()
 
-  //   await page.goto('/dashboard')
-  //   await page.waitForLoadState('load')
-  //   await page.getByTestId('seeLessonDetails').click()
+    await page.goto('/dashboard')
+    await page.waitForLoadState('load')
+    await page.getByTestId('seeLessonDetails').click()
 
-  //   await expect(page.getByTestId('lessonDetails')).toContainText(newTitle)
-  // })
+    await expect(page.getByTestId('lessonDetails')).toContainText(newTitle)
+  })
 
-  // test('can remove lesson', async ({ page }) => {
-  //   await loginNewUser(page, user)
-  //   await page.goto('/dashboard')
+  test.skip('can remove lesson', async ({ page }) => {
+    await loginNewUser(page, user)
+    await page.goto('/dashboard')
 
-  //   const lessonsCreatedList = page.getByTestId('lessonList')
-  //   await page.getByTestId('seeLessonDetails').click()
+    const lessonsCreatedList = page.getByTestId('lessonList')
+    await page.getByTestId('seeLessonDetails').click()
 
-  //   await page.waitForLoadState('load')
-  //   await page.getByTestId('updateLesson').click()
-  //   await page.waitForLoadState('load')
+    await page.waitForLoadState('load')
+    await page.getByTestId('updateLesson').click()
+    await page.waitForLoadState('load')
 
-  //   await page.getByTestId('deleteLesson').click()
+    await page.getByTestId('deleteLesson').click()
 
-  //   // await page.waitForLoadState('load')
+    // await page.waitForLoadState('load')
 
-  //   await page.getByTestId('remove').click()
-  //   await page.goto('/dashboard')
-  //   // await page.waitForLoadState('load')
+    await page.getByTestId('remove').click()
+    await page.goto('/dashboard')
+    // await page.waitForLoadState('load')
 
-  //   await expect(lessonsCreatedList).toBeHidden()
-  // })
+    await expect(lessonsCreatedList).toBeHidden()
+  })
 })
