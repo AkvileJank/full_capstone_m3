@@ -15,7 +15,7 @@ test.describe.serial('see a lesson', () => {
   const user = fakeUser()
   const lesson = fakeLesson()
 
-  test.skip('user can create a lesson', async ({ page }) => {
+  test('user can create a lesson', async ({ page }) => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
