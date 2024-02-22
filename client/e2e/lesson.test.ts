@@ -55,17 +55,6 @@ test.describe.serial('see a lesson', () => {
     await expect(lessonDetails).toContainText(lesson.description)
   })
 
-  // // find lessons
-  test.skip('go to find lessons page', async ({ page }) => {
-    // Give (Arrange)
-    await loginNewUser(page, user)
-    await page.goto('/dashboard')
-    await page.getByTestId('findLessons').click()
-
-    const message = page.getByTestId('lessonListEmpty')
-    await expect(message).toBeHidden()
-  })
-
   // //user can edit the lesson
   test('can edit lesson', async ({ page }) => {
     // Give (Arrange)

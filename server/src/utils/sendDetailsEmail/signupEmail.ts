@@ -8,14 +8,14 @@ export default async (user: Pick<User, 'firstName' | 'email'>) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: config.emailUser, // gmail account for project
-      pass: config.emailPass, // psw for that account
+      user: config.emailUser,
+      pass: config.emailPass,
     },
   })
 
   const mailText = signupEmail(user.firstName)
   const mailOptions = {
-    from: config.emailUser, // config.emailUser
+    from: config.emailUser,
     to: user.email,
     ...mailText,
   }

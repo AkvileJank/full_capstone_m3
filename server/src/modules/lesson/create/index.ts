@@ -15,6 +15,7 @@ export default authenticatedProcedure
       logger.info(
         `Lesson id:${createdLesson.id} was created by user id:${authUser.id}`
       )
+
       return createdLesson
     } catch (e) {
       logger.error(e)
