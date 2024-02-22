@@ -8,9 +8,9 @@ import { renderTrpcPanel } from 'trpc-panel'
 import type { Database } from './database'
 import { appRouter } from './modules'
 import type { Context } from './trpc'
-import logger from './logger'
-import { TRPCError } from '@trpc/server'
-import { ZodError } from 'zod'
+// import logger from './logger'
+// import { TRPCError } from '@trpc/server'
+// import { ZodError } from 'zod'
 
 export default function createApp(db: Database) {
   const app = express()

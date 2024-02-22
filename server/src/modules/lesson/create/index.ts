@@ -2,7 +2,7 @@ import { Lesson, lessonInsertSchema } from '@server/entities/lesson'
 import type { LessonBare } from '@server/entities/lesson'
 import logger from '@server/logger'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
-import { TRPCError } from '@trpc/server'
+// import { TRPCError } from '@trpc/server'
 
 export default authenticatedProcedure
   .input(lessonInsertSchema.omit({ teacherId: true }))
