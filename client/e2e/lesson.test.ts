@@ -67,11 +67,10 @@ test.describe.serial('see a lesson', () => {
   })
 
   // //user can edit the lesson
-  test.skip('can edit lesson', async ({ page }) => {
+  test('can edit lesson', async ({ page }) => {
     // Give (Arrange)
     await loginNewUser(page, user)
     await page.goto('/dashboard')
-    // await page.getByTestId('viewProjectBugs').click()
     await page.getByTestId('seeLessonDetails').click()
 
     await page.waitForLoadState('load')
@@ -103,11 +102,8 @@ test.describe.serial('see a lesson', () => {
 
     await page.getByTestId('deleteLesson').click()
 
-    // await page.waitForLoadState('load')
-
     await page.getByTestId('remove').click()
     await page.goto('/dashboard')
-    // await page.waitForLoadState('load')
 
     await expect(lessonsCreatedList).toBeHidden()
   })
