@@ -41,20 +41,19 @@ test.describe.serial('see a lesson', () => {
     await expect(page.getByTestId('title')).toContainText(lesson.title)
   })
 
-  // test('can see lesson details', async ({ page }) => {
-  //   // Give (Arrange)
-  //   await loginNewUser(page, user)
-  //   await page.goto('/dashboard')
-  //   // await page.getByTestId('viewProjectBugs').click()
-  //   await page.getByTestId('seeLessonDetails').click()
+  test('can see lesson details', async ({ page }) => {
+    // Give (Arrange)
+    await loginNewUser(page, user)
+    await page.goto('/dashboard')
+    await page.getByTestId('seeLessonDetails').click()
 
-  //   await page.waitForLoadState('load')
+    await page.waitForLoadState('load')
 
-  //   const lessonDetails = page.getByTestId('lessonDetails')
-  //   await expect(lessonDetails).toContainText(lesson.title)
-  //   await expect(lessonDetails).toContainText(lesson.location)
-  //   await expect(lessonDetails).toContainText(lesson.description)
-  // })
+    const lessonDetails = page.getByTestId('lessonDetails')
+    await expect(lessonDetails).toContainText(lesson.title)
+    await expect(lessonDetails).toContainText(lesson.location)
+    await expect(lessonDetails).toContainText(lesson.description)
+  })
 
   // // find lessons
   // test('go to find lessons page', async ({ page }) => {
