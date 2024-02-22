@@ -89,7 +89,7 @@ test.describe.serial('see a lesson', () => {
     await expect(page.getByTestId('lessonDetails')).toContainText(newTitle)
   })
 
-  test.skip('can remove lesson', async ({ page }) => {
+  test('can remove lesson', async ({ page }) => {
     await loginNewUser(page, user)
     await page.goto('/dashboard')
 
