@@ -5,6 +5,7 @@ import PageForm from '@/components/PageForm.vue'
 import { FwbAlert, FwbButton, FwbInput } from 'flowbite-vue'
 import { useRouter } from 'vue-router'
 import useErrorMessage from '@/composables/useErrorMessage'
+import AlertError from '@/components/AlertError.vue'
 
 const router = useRouter()
 
@@ -36,9 +37,7 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
           :required="true"
         />
 
-        <FwbAlert v-if="errorMessage" data-testid="errorMessage" type="danger">
-          {{ errorMessage }}
-        </FwbAlert>
+        <AlertError :message="errorMessage"></AlertError>
 
         <div class="grid">
           <FwbButton color="green" type="submit" size="xl">Log in</FwbButton>
