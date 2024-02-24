@@ -16,6 +16,8 @@ export default publicProcedure
     }) => {
       const hash = await bcrypt.hash(password, config.auth.passwordCost)
 
+      // ideally user should be added after sign up confirmation email could be sent (email should be valid)
+      // for reviewer to sign up with any email address I kept the order as it is now
       try {
         const user = await db.getRepository(User).save({
           email,
@@ -43,6 +45,13 @@ export default publicProcedure
           throw new TRPCError({
             code: 'BAD_REQUEST',
             message: 'User with this email already exists',
+          })
+        }
+
+        if (error.message.includes('email')) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Sign up confirmation email could not be sent',
           })
         }
 

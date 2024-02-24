@@ -22,11 +22,11 @@ const navigation = computed(() =>
 
 <template>
   <div class="cont">
-  <FwbNavbar>
-    <template #default="{ isShowMenu }">
-      <FwbNavbar-collapse :isShowMenu="isShowMenu">
-        <!-- prettier-ignore -->
-        <FwbNavbarLink
+    <FwbNavbar>
+      <template #default="{ isShowMenu }">
+        <FwbNavbar-collapse :isShowMenu="isShowMenu">
+          <!-- prettier-ignore -->
+          <FwbNavbarLink
           v-for="link in navigation"
           :key="link.name"
           :is-active="link.isActive"
@@ -36,11 +36,11 @@ const navigation = computed(() =>
         >
           {{ link.label }}
         </FwbNavbarLink>
-        <slot name="menu" />
-      </FwbNavbar-collapse>
-    </template>
-  </FwbNavbar>
-</div>
+          <slot name="menu" />
+        </FwbNavbar-collapse>
+      </template>
+    </FwbNavbar>
+  </div>
   <main>
     <RouterView />
   </main>

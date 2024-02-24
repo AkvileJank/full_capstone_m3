@@ -49,10 +49,23 @@ export type UserBare = Omit<User, 'ownedLessons' | 'attendingLessons'>
 
 export const userSchema = validates<UserBare>().with({
   id: z.number().positive().int(),
-  email: z.string().trim().email().toLowerCase(),
-  password: z.string().min(8).max(64),
-  firstName: z.string().trim().min(1).max(255),
-  lastName: z.string().trim().min(1).max(255),
+  email: z
+    .string()
+    .trim()
+    .email({ message: 'Format is not valid' })
+    .toLowerCase(),
+  password: z
+    .string()
+    .min(8, { message: 'Must have at least 8 characters' })
+    .max(64, { message: `Can't be longer than 64 characters` }),
+  firstName: z
+    .string()
+    .trim()
+    .min(1, { message: 'Must be at least 1 character' }),
+  lastName: z
+    .string()
+    .trim()
+    .min(1, { message: 'Must be at least 1 character' }),
 })
 
 export const userInsertSchema = userSchema.omit({

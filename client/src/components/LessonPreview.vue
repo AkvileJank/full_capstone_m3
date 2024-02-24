@@ -15,7 +15,10 @@ const dateTime = dateFormatter(props.lesson.dateTime)
 <template>
   <Card class="flex flex-col justify-between">
     <div class="mb-2 flex flex-col gap-2">
-      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white" data-testid="title">
+      <h5
+        class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+        data-testid="title"
+      >
         {{ lesson.title }}
       </h5>
       <div class="flex gap-2">

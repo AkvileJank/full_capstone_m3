@@ -49,12 +49,37 @@ export type LessonBare = Omit<Lesson, 'teacher' | 'attendingUsers'>
 
 export const lessonSchema = validates<LessonBare>().with({
   id: z.number().positive().int(),
-  title: z.string().trim().min(2).max(150),
+  title: z
+    .string()
+    .trim()
+    .min(2, { message: 'Must be longer than 2 characters' })
+    .max(150, { message: `Can't be longer than than 150 characters` }),
   dateTime: z.date(),
-  duration: z.number().positive().int().min(1),
-  location: z.string().trim().min(2).max(1000),
-  capacity: z.number().positive().int().max(1000000),
-  description: z.string().trim().min(2).max(1000),
+  duration: z
+    .number()
+    .positive()
+    .int()
+    .min(1, { message: `Can't be less than 1 minute` }),
+  location: z
+    .string()
+    .trim()
+    .min(2, { message: 'Must be longer than 1 character' })
+    .max(1000, {
+      message: `Can't be longer than than 1000 characters`,
+    }),
+  capacity: z
+    .number()
+    .positive()
+    .int()
+    .min(1, { message: 'Must be more than 0' })
+    .max(100000, { message: `Can't be more than 100000` }),
+  description: z
+    .string()
+    .trim()
+    .min(2, { message: 'Must be longer than 1 character' })
+    .max(1000, {
+      message: `Can't be longer than than 1000 characters`,
+    }),
   teacherId: z.number().positive().int(),
 })
 

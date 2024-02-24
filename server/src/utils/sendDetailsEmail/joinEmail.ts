@@ -12,15 +12,15 @@ export default async (
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: config.emailUser, // gmail account for project
-      pass: config.emailPass, // psw for that account
+      user: config.emailUser,
+      pass: config.emailPass,
     },
   })
 
   const mailText = joinEmail(student.firstName, lesson)
 
   const mailOptions = {
-    from: 'emailforbe3@gmail.com', // config.emailUser
+    from: 'emailforbe3@gmail.com',
     to: student.email,
     ...mailText,
   }

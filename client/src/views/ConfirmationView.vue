@@ -30,11 +30,7 @@ onBeforeMount(async () => {
               You have successfully joined this lesson:
             </FwbHeading>
           </div>
-          <LessonDetails
-            :lesson="lesson"
-
-            :is-confirm="true"
-          ></LessonDetails>
+          <LessonDetails :lesson="lesson" :is-confirm="true"></LessonDetails>
 
           <!-- prettier-ignore -->
           <div class="mt-8">

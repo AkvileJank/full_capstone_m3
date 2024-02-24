@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { trpc } from '@/trpc'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { FwbButton, FwbHeading } from 'flowbite-vue'
 import useErrorMessage from '@/composables/useErrorMessage'
@@ -20,9 +20,9 @@ const lessonForm = ref({
 
 const [createLesson, errorMessage] = useErrorMessage(async () => {
   await trpc.lesson.create.mutate(lessonForm.value)
-
   router.push({ name: 'Dashboard' })
 })
+
 </script>
 
 <template>

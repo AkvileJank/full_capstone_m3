@@ -34,7 +34,7 @@ const isJoined = (lesson: LessonPreview) => {
 </script>
 
 <template>
-  <div class="bg-[url('../assets/dotsDash.jpg')] bg-no-repeat bg-center bg-fixed bg-cover h-screen">
+  <div class="h-screen bg-[url('../assets/dotsDash.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
     <div class="container mx-auto px-6 py-8">
       <FwbHeading tag="h4" class="mb-6">Browse all lessons:</FwbHeading>
 
@@ -67,7 +67,6 @@ const isJoined = (lesson: LessonPreview) => {
   </div>
 </template>
 <style scoped>
-
 .joined {
   background-color: #ace49c;
   opacity: 0.7;

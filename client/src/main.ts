@@ -10,19 +10,11 @@ import router from './router'
 const app = createApp(App)
 
 Sentry.init({
+  app,
   dsn: 'https://0cd75028d73a514a28ed4336e3ee4525@o4506779861123072.ingest.sentry.io/4506779869708288',
-  integrations: [
-    Sentry.browserTracingIntegration(),
-    Sentry.replayIntegration({
-      maskAllText: false,
-      blockAllMedia: false,
-    }),
-  ],
-  // Performance Monitoring
-  tracesSampleRate: 1.0, //  Capture 100% of the transactions
-  // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+  integrations: [Sentry.browserTracingIntegration({ router }), Sentry.replayIntegration()],
+  tracesSampleRate: 1.0,
   tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/],
-  // Session Replay
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 })
