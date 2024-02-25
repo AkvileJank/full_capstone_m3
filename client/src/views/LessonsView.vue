@@ -39,17 +39,15 @@ const isJoined = (lesson: LessonPreview) => {
       <FwbHeading tag="h4" class="mb-6">Browse all lessons:</FwbHeading>
 
       <div class="DashboardView">
-        <div
-          v-if="lessonsFound.length"
-          data-testid="lessonList"
-          class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6"
-        >
-          <LessonPreviewComp
-            v-for="lesson in lessonsFound"
-            :key="lesson.id"
-            :lesson="lesson"
-            :class="{ joined: isJoined(lesson) }"
-          />
+        <div v-if="lessonsFound.length">
+          <div data-testid="lessonList" class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6">
+            <LessonPreviewComp
+              v-for="lesson in lessonsFound"
+              :key="lesson.id"
+              :lesson="lesson"
+              :class="{ joined: isJoined(lesson) }"
+            />
+          </div>
 
           <div class="flex justify-center gap-6">
             <FwbButton @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
