@@ -50,18 +50,19 @@ const isJoined = (lesson: LessonPreview) => {
             :lesson="lesson"
             :class="{ joined: isJoined(lesson) }"
           />
-        </div>
-        <FwbAlert class="mb-3" v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
-      </div>
 
-      <div class="flex justify-center gap-6">
-        <FwbButton @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
-          Previous
-        </FwbButton>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <FwbButton @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
-          Next
-        </FwbButton>
+          <div class="flex justify-center gap-6">
+            <FwbButton @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
+              Previous
+            </FwbButton>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <FwbButton @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
+              Next
+            </FwbButton>
+          </div>
+        </div>
+
+        <FwbAlert class="mb-3" v-else data-testid="lessonListEmpty">No lessons yet!</FwbAlert>
       </div>
     </div>
   </div>
