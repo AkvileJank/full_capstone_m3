@@ -1,3 +1,4 @@
+# Full-stack skill sharing app
 
 ## Description
 
@@ -13,6 +14,7 @@ https://capstone-service-m3.8dle1a4jnbm8a.eu-central-1.cs.amazonlightsail.com/
 - tRPC for API endpoints to ensure full-stack type safety
 - PostgreSQL database with typeORM
 - Zod for schema declaration and validation
+- JWT for client auth
 - Vitest for unit tests (test coverage ~90%)
 - Pino for logging
 
