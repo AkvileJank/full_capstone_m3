@@ -1,24 +1,17 @@
-import nodemailer from 'nodemailer'
 import config from '@server/config'
 import { User } from '@server/entities'
 import logger from '@server/logger'
 import { signupEmail } from './texts'
+import emailSetup from './emailSetup'
 
 export default async (user: Pick<User, 'firstName' | 'email'>) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: config.emailUser,
-      pass: config.emailPass,
-    },
-  })
-
   const mailText = signupEmail(user.firstName)
-  const mailOptions = {
-    from: config.emailUser,
-    to: user.email,
-    ...mailText,
-  }
+  const { transporter, mailOptions } = emailSetup(
+    config.emailUser,
+    config.emailPass,
+    user.email,
+    mailText
+  )
 
   if (config.env !== 'test') {
     try {
