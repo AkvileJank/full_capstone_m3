@@ -1,13 +1,43 @@
+
 ## Description
 
-This is an mvp of a website for joining or creating skill sharing lessons. It allows users to sign up and login, create, manage or attend lessons. Users are free to create lessons they would like to teach or join other users as learners in already created lessons!
+This is a fully-functional full-stack typescript web app for joining or creating skill sharing lessons. It allows users to sign up, login, create, manage or attend lessons. Users are free to create lessons they would like to teach or join other users as learners in already created lessons!
 
-Website: https://capstone-service-m3.8dle1a4jnbm8a.eu-central-1.cs.amazonlightsail.com/
+#### Website: 
+https://capstone-service-m3.8dle1a4jnbm8a.eu-central-1.cs.amazonlightsail.com/
+
+## Tech stack
+
+### Server
+- Node.js with Express.js and TypeScript
+- tRPC for API endpoints to ensure full-stack type safety
+- PostgreSQL database with typeORM
+- Zod for schema declaration and validation
+- Vitest for unit tests (test coverage ~90%)
+- Pino for logging
+
+
+### Client
+- Vue.js with TypeScript
+- Routing with VueRouter
+- Tailwind CSS with Flowbite components for styling
+- End-to-end (E2E) tests with Playwright
+- Unit tests with Vitest
+- Sentry for error tracking
+
+
+### CI/CD
+- Github Actions workflows for testing and deployment
+- Docker for containerisation
+- AWS Lightsail for deployment
+
+### Code quality
+- ESLint
+- Prettier
 
 ## Functionalities
 
-A user can:
-
+### A user can:
 - sign up
 - login
 - create a lesson
@@ -16,7 +46,7 @@ A user can:
 - receive confirmation email after signing up and joining lesson
 - withdraw from a joined lesson
 
-As a teacher, a user can:
+### As a teacher, a user can:
 
 - see all their created lessons
 - edit and update a created lesson
