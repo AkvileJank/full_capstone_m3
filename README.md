@@ -4,9 +4,6 @@
 
 This is a fully-functional full-stack typescript web app for joining or creating skill sharing lessons. It allows users to sign up, login, create, manage or attend lessons. Users are free to create lessons they would like to teach or join other users as learners in already created lessons!
 
-#### Check it out live: 
-https://capstone-service-m3.8dle1a4jnbm8a.eu-central-1.cs.amazonlightsail.com/
-
 ## Tech stack
 
 ### Server
